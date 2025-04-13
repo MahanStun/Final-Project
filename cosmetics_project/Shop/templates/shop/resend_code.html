@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تأیید کد</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('https://4kwallpapers.com/images/wallpapers/night-landscape-2880x1800-10260.jpg') no-repeat center center fixed;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .resend {
+            display: block;
+            margin-top: 10px;
+            color: #007bff;
+            cursor: pointer;
+        }
+        .resend:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>کد تأیید را وارد کنید</h2>
+        <input type="text" placeholder="کد ۶ رقمی">
+        <button>تأیید</button>
+        <form action="{% url 'resend_code' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="resend">دریافت مجدد کد</button>
+        </form>
+    </div>
+</body>

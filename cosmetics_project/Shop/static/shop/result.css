@@ -1,0 +1,110 @@
+/* استایل پیشرفته برای آزمون تستی */
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
+
+body {
+    font-family: 'Vazirmatn', Arial, sans-serif;
+    background: linear-gradient(135deg, #e0f7fa, #80deea);
+    color: #333;
+    margin: 0;
+    padding: 0;
+    direction: rtl;
+    text-align: right;
+}
+
+.container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1.2s ease-in-out;
+}
+
+h2 {
+    font-size: 2rem;
+    color: #00796b;
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #00796b;
+    padding-bottom: 8px;
+}
+
+p {
+    margin: 15px auto;
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: 80%;
+    font-size: 1.2rem;
+    line-height: 1.5;
+}
+
+p:nth-child(odd) {
+    background-color: #e6f2ff;
+}
+
+p:last-child {
+    margin-bottom: 30px;
+}
+
+.question p {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #004d40;
+    margin-bottom: 10px;
+}
+
+input[type="radio"] {
+    margin-right: 10px;
+    accent-color: #00796b;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    background-color: #00796b;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #004d40;
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 90%;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    button {
+        font-size: 1rem;
+    }
+}
+
+/* افکت ورود به صفحه */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

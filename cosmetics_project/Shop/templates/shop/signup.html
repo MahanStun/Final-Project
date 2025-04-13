@@ -1,0 +1,55 @@
+{% extends "base_Shop.html" %}
+{% load static %}
+
+{% block title %}
+    ثبت نام
+{% endblock title %}
+
+{% block header_refrences %}
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{% static "shop/css/styles.css" %}" rel="stylesheet" />
+{% endblock header_refrences %}
+
+{% block header_section_Shop  %}
+    <!-- Navigation-->
+    <!-- Header-->
+    {% include "Blog/includes/header_sign_up.html" %}
+    {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-warning alert-dismissible fade show text-end" role="alert">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      
+      {% endfor %}
+    
+    {% endif %}
+{% endblock header_section_student %}
+
+
+{% block content_section_student %}
+<div class="container m-5">
+    <form method="post" dir="rtl" action="">
+          {% csrf_token %}
+          <div class="row justify-content-center">
+              <div class="col-7">
+                  {{form.as_p}}
+                  <div class="form-btn mt-3">
+                    <button type="submit" class="btn btn-primary">ثبت نام</button>
+                  </div>
+              </div>
+          </div>
+  
+   
+      
+  </form>
+  </div>
+
+{% endblock content_section_student %}
+
+{% block footer_section_student %}
+{% endblock footer_section_student %}

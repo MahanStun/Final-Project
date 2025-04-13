@@ -1,0 +1,68 @@
+{% extends "base_Students.html" %}
+{% load static %}
+{% load humanize %} 
+
+{% block title %}
+    دانش اموزان
+{% endblock title %}
+
+
+{% block header_refrences %}
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{% static "student/css/styles.css" %}" rel="stylesheet" />
+    <link href="{% static "student/css/style404.css" %}" rel="stylesheet" />
+{% endblock header_refrences %}
+
+{% block header_section_student  %}
+    <!-- Navigation-->
+    {% include "Students/includes/navbar.html" %}
+
+    {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-warning alert-dismissible fade show text-end" role="alert">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      
+      {% endfor %}
+    
+    {% endif %}
+    <!-- Header-->
+    {% include "Students/includes/header.html" %}
+{% endblock header_section_student %}
+
+{% block content_section_student %}
+<div class="wrapper">
+    <div class="text_group">
+      <p class="text_404">404</p>
+      <p class="text_lost">همچین صفحه ای وجود ندارد <br />یا شایدم در فضا گم شده است</p>
+        <button type="button" class="btn btn-dark">
+            <a href="{% url "index_students" %}" class="text-decoration-none">بازگشت به صفحه اصلی</a>
+        </button>
+
+    </div>
+    <div class="window_group">
+      <div class="window_404">
+        <div class="stars"></div>
+        
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<br>
+
+{% endblock content_section_student %}
+
+
+
+
+{% block footer_section_student %}
+    <!-- Footer-->
+    {% include "Students/includes/footer.html" %}
+{% endblock  %}

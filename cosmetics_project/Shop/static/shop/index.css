@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+#main-navigation {
+    width: 100%;
+    height: 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(#9faac9, #3e6ef1);
+    border-radius: 10px;
+}
+
+#main-navigation a {
+    padding: 5px 20px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-family: "Hind Siliguri", sans-serif;
+    transition: color 0.5s ,border-top 0.5s;
+}
+#main-navigation a:hover,
+#main-navigation a:active{
+    color: #dadadb;
+   
+
+}
+#main-navigation nav a:hover{
+    border-top: 4px solid #dadadb;
+}
+
+#welcome{
+    margin-top: 20px;
+    background: linear-gradient(to right top ,#8c8c8c,#4e8dfa);
+    border-radius: 10px;
+}
+
+#welcome header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+
+}
+#welcome img {
+    margin-top: 20px;
+    margin-right: 20px;
+    width: 10rem;
+    height: 10rem;
+    border: 5px solid white;
+    border-radius: 50%;
+    /* background-color: #f8129812; */
+    transform: rotatez(-5deg);
+    box-shadow: 2px 10px 4px rgba(255, 0, 0, 0.5);
+}
+#welcome h2{
+    font-family: "Hind Siliguri", sans-serif;
+    color: #e4e4e4;
+    font-size: 3rem;
+    width: 10rem;
+    margin: 0;
+
+}
+#welcome p{
+    font-family: "Hind Siliguri", sans-serif;
+    color: rgb(0, 0, 0);
+    font-size: 2rem;
+    text-align: center;
+    padding-bottom: 30px;
+}
