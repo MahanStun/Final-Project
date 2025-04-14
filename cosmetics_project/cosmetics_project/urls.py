@@ -19,6 +19,7 @@ from django.urls import path, include
 from . import settings
 from django.conf.urls.static import static
 urlpatterns = [
+    path("", include("Blog.urls")), # 127.0.0.1
     path('admin/', admin.site.urls),
     path("Shop/",include("Shop.urls")),
 ]

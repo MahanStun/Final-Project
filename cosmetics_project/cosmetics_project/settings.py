@@ -123,3 +123,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # هاست SMTP (مثلاً smtp.gmail.com برای Gmail)
+EMAIL_PORT = 587  # شماره پورت
+EMAIL_USE_TLS = True  # استفاده از TLS
+EMAIL_HOST_USER = 'nejadimahan6@gmail.com'  # ایمیل شما
+EMAIL_HOST_PASSWORD = 'plwguseazwwpdhhx'  # رمز عبور ایمیل

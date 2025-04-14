@@ -16,7 +16,7 @@ from .forms import SignUpForm
 # Create your views here.
 class UserEditView(generic.UpdateView):
     form_class = UserChangeForm
-    template_name = "Students/setting.html"
+    template_name = "Shop/setting.html"
     success_url = reverse_lazy("index_blog")
     def get_object(self):
         return self.request.user
@@ -35,14 +35,14 @@ def login_user(request):
             login(request, user)
             # EmailConfirmation(request, username, emailto,)
             messages.success(request, ("با موفقیت وارد اکانت شدید"))
-            return redirect("index_shop")
+            return redirect("index_blog")
         
         else:
             messages.error(request, ("ورود با خطا مواجه شده است"))
             return redirect("login_url")
 
     else:
-        return render(request, "Students/login.html")
+        return render(request, "Shop/login.html")
 def edit_user(request):
     pass
 
@@ -87,13 +87,13 @@ def signup_user(request):
             )
 
         return redirect("verifycation_code")  # ارسال کاربر به صفحه وارد کردن کد
-    return render(request, "Students/signup.html", {"form": form})
+    return render(request, "Shop/signup.html", {"form": form})
 
 
 def logout_user(request):
     logout(request)
     messages.success(request, ("از اکانت با موفقیت خارج شدید"))
-    return redirect("index_shop")
+    return redirect("index_blog")
 from django.shortcuts import render
 from django.http import HttpResponse
 
@@ -118,12 +118,12 @@ def quiz_view(request):
             else:
                 results[question] = "❌ غلط"
 
-        return render(request, "Students/quiz_result.html", {"results": results, "score": score})
+        return render(request, "Shop/quiz_result.html", {"results": results, "score": score})
 
     return HttpResponse("لطفاً از طریق فرم اقدام کنید.")
 
 def verifycation_code(request):
-        return render(request, "Students/verifycation_code.html")
+        return render(request, "Shop/verifycation_code.html")
 def verify_code(request):
     if request.method == "POST":
         entered_code = request.POST.get("verification_code")
@@ -131,7 +131,7 @@ def verify_code(request):
 
         if entered_code == saved_code:
             messages.success(request, "کد تأیید صحیح است. حساب شما تأیید شد!")
-            return redirect("index_shop")
+            return redirect("index_blog")
         else:
             messages.error(request, "کد تأیید اشتباه است! لطفاً دوباره امتحان کنید.")
             return redirect("verifycation_code")
@@ -155,4 +155,4 @@ def resend_code(request):
         return redirect("verifycation_code")
 
 def exam(request):
-        return render(request, "Students/exam.html")
+        return render(request, "Shop/exam.html")

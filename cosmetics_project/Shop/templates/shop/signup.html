@@ -1,4 +1,3 @@
-{% extends "base_Shop.html" %}
 {% load static %}
 
 {% block title %}
@@ -14,7 +13,7 @@
     <link href="{% static "shop/css/styles.css" %}" rel="stylesheet" />
 {% endblock header_refrences %}
 
-{% block header_section_Shop  %}
+{% block header_section_shop  %}
     <!-- Navigation-->
     <!-- Header-->
     {% include "Blog/includes/header_sign_up.html" %}
@@ -28,10 +27,10 @@
       {% endfor %}
     
     {% endif %}
-{% endblock header_section_student %}
+{% endblock header_section_shop %}
 
 
-{% block content_section_student %}
+{% block content_section_shop %}
 <div class="container m-5">
     <form method="post" dir="rtl" action="">
           {% csrf_token %}
@@ -49,7 +48,7 @@
   </form>
   </div>
 
-{% endblock content_section_student %}
+{% endblock content_section_shop %}
 
-{% block footer_section_student %}
-{% endblock footer_section_student %}
+{% block footer_section_shop %}
+{% endblock footer_section_shop %}
