@@ -24,7 +24,13 @@ class UserEditView(generic.UpdateView):
 
 
 def index_shop(request):
-        return render(request, "shop/index.html")
+    Products = Product.objects.all()
+    return render(request, "shop/index.html", {"Products": Products})
+    #return HttpResponse("welcome")
+def Products_Cosmetics(request, pk):
+    Productss = Product.objects.get(id=pk)
+    return render(request, "shop/Products_Cosmetics.html", {"Productss": Productss})
+
 
 def login_user(request):
     if request.method == "POST":

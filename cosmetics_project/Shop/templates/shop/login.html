@@ -1,8 +1,5 @@
 {% load static %}
 
-{% block title %}
-    ورود
-{% endblock title %}
 
 {% block header_refrences %}
     <!-- Favicon-->
@@ -16,7 +13,6 @@
 {% block header_section_shop  %}
     <!-- Navigation-->
     <!-- Header-->
-    {% include "Blog/includes/header_login.html" %}
     {% if messages %}
       {% for message in messages %}
       <div class="alert alert-warning alert-dismissible fade show text-end" role="alert">
@@ -31,20 +27,31 @@
 
 
 {% block content_section_shop %}
+<div class="container">
+  <h2 class="login-title">ورود</h2> <!-- اضافه کردن عنوان بالای فرم -->
 <div class="container m-5">
   <form method="post" dir="rtl" action="">
         {% csrf_token %}
         <div class="row justify-content-center">
             <div class="col-7">
-                <div class="form-group mt-3">
-                    <label for="exampleInputEmail1">نام کاربری</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="یوزرنیم را وارد کنید" name="username">
-                   
+              <div class="form-group mt-3">
+                <label for="exampleInputEmail1">نام کاربری</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="یوزرنیم را وارد کنید" name="username">
                 </div>
+            </div>
+            
                 <div class="form-group mt-3">
-                    <label for="exampleInputPassword1">رمز عبور</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="پسورد را وارد کنید" name="password">
-                </div>
+                  <label for="exampleInputPassword1">رمز عبور</label>
+                  <div class="input-group">
+                      <input type="password" class="form-control" id="passwordField" placeholder="پسورد را وارد کنید" name="password">
+                      <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                          <i class="bi bi-eye"></i>
+                      </button>
+                  </div>
+              </div>
+              <div id="errorMessage" class="alert alert-danger mt-2" style="display: none;"></div>
+              <br>
                 <div class="form-btn mt-3">
                   <button type="submit" class="btn btn-primary">ورود</button>
                 </div>
@@ -56,6 +63,51 @@
 </form>
 </div>
 
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      const form = document.querySelector("form");
+      const username = document.querySelector("input[name='username']");
+      const password = document.querySelector("#passwordField");
+      const errorMessage = document.querySelector("#errorMessage");
+      const togglePassword = document.querySelector("#togglePassword");
+      const icon = togglePassword.querySelector("i");
+  
+      form.addEventListener("submit", function(event) {
+          let valid = true;
+          let errors = [];
+  
+          if (username.value.trim() === "") {
+              errors.push("لطفاً نام کاربری را وارد کنید.");
+              valid = false;
+          }
+          if (password.value.trim() === "") {
+              errors.push("لطفاً رمز عبور را وارد کنید.");
+              valid = false;
+          }
+  
+          if (!valid) {
+              errorMessage.innerHTML = errors.join("<br>");
+              errorMessage.style.display = "block";
+              event.preventDefault(); // جلوگیری از ارسال فرم
+          } else {
+              errorMessage.style.display = "none";
+          }
+      });
+  
+      // قابلیت نمایش/مخفی کردن رمز عبور
+      togglePassword.addEventListener("click", function() {
+          if (password.type === "password") {
+              password.type = "text";
+              icon.classList.replace("bi-eye", "bi-eye-slash");
+          } else {
+              password.type = "password";
+              icon.classList.replace("bi-eye-slash", "bi-eye");
+          }
+      });
+  });
+  </script>
+  
 {% endblock content_section_shop %}
 
 {% block footer_section_shop %}

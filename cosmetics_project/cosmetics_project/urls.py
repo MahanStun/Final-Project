@@ -22,4 +22,4 @@ urlpatterns = [
     path("", include("Blog.urls")), # 127.0.0.1
     path('admin/', admin.site.urls),
     path("Shop/",include("Shop.urls")),
-]
+]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

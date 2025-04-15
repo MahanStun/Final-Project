@@ -1,8 +1,6 @@
 {% load static %}
 
-{% block title %}
-    ثبت نام
-{% endblock title %}
+
 
 {% block header_refrences %}
     <!-- Favicon-->
@@ -10,13 +8,12 @@
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="{% static "shop/css/styles.css" %}" rel="stylesheet" />
+    <link href="{% static "shop/css/sign_up.css" %}" rel="stylesheet" />
 {% endblock header_refrences %}
 
 {% block header_section_shop  %}
     <!-- Navigation-->
     <!-- Header-->
-    {% include "Blog/includes/header_sign_up.html" %}
     {% if messages %}
       {% for message in messages %}
       <div class="alert alert-warning alert-dismissible fade show text-end" role="alert">
@@ -31,22 +28,22 @@
 
 
 {% block content_section_shop %}
-<div class="container m-5">
-    <form method="post" dir="rtl" action="">
-          {% csrf_token %}
-          <div class="row justify-content-center">
-              <div class="col-7">
-                  {{form.as_p}}
-                  <div class="form-btn mt-3">
-                    <button type="submit" class="btn btn-primary">ثبت نام</button>
-                  </div>
+
+<div class="container">
+  <h2 class="signup-title">ثبت نام</h2> <!-- اضافه کردن عنوان بالای فرم -->
+  <form method="post" dir="rtl" action="">
+      {% csrf_token %}
+      <div class="row justify-content-center">
+          <div class="col-7">
+              {{form.as_p}}
+              <div class="form-btn mt-3">
+                  <button type="submit" class="btn btn-primary">ثبت نام</button>
               </div>
           </div>
-  
-   
-      
+      </div>
   </form>
-  </div>
+</div>
+
 
 {% endblock content_section_shop %}
 

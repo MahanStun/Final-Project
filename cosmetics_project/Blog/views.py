@@ -8,9 +8,8 @@ from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.forms import PasswordChangeForm, UserChangeForm
 from django.urls import reverse_lazy
 from django.views import generic
+from .models import *
 from .forms import *
-
-
 all_posts = [
     {
         "slug": "learning-django",
@@ -58,7 +57,8 @@ def get_date(post):
 
 def index(request):
     # sorted_post = sorted(all_posts, key=get_date)
-    return render(request, "Blog/index.html")
+    My_Blogs = My_Blog.objects.all()
+    return render(request, "Blog/index.html", {"My_Blogs": My_Blogs})
     #return HttpResponse("welcome")
 
     
