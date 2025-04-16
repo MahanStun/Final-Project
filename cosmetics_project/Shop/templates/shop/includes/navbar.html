@@ -1,18 +1,20 @@
+{% load static %}
 
-<nav class="bg-primary navbar navbar-expand-lg">
-    <div class="container-fluid">
-        <a class="text-white dropdown-item" href="">:امتحانات مختلف</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fas fa-bars"></i>
-        </button>
 
-        <div class="d-flex justify-content-between container px-5  my-6">
-    <li class="nav-item dropdown">
-
-            <li><a class="text-white dropdown-item"> گرینه ها</a></li>
-
-    </li>
-
-        </div>
-    </div>
+<link rel="stylesheet" href="{% static "blog/index.css" %}">
+{% if user.is_authenticated %}
+<nav>
+    <a href="{% url "index_blog" %}">خانه</a>
+    <a href="{% url "index_shop" %}">بخش خرید لوازم ارایش</a>
+    <a href="{% url "logout_url" %}">خارج شدن</a>
+    <a href="{% url "cart_summary" %}" class="btn btn-outline-dark">
+        <i class="bi-cart-fill me-1"></i>
+        سبد خرید
+        <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">{{cart|length}}</span>
 </nav>
+{% else %}
+<nav>
+    <a href="{% url "login_url" %}">ورود</a>
+    <a href="{% url "signup_url" %}">ثبت نام</a>
+</nav>
+{% endif %}

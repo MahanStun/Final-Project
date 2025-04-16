@@ -33,7 +33,7 @@
     <!-- Header-->
     {% include "shop/includes/header.html" %}
 {% endblock header_section_shop %}
-
+    {% include "shop/includes/navbar.html" %}
 {% block content_section_shop %}
 <!-- Section-->
  <br><br>
@@ -60,7 +60,7 @@
        
 
           {% endif %}
-          <button type="button" class="btn btn-dark" value="{{StudentForYearrrrrr.id}}" id="add-cart">افزودن به سبد خرید <i class="bi bi-cart"></i></button>
+          <button type="button" class="btn btn-dark" value="{{Productss.id}}" id="add-cart">افزودن به سبد خرید <i class="bi bi-cart"></i></button>
 
           <button type="button" class="btn btn-dark">
            <a href="{% url "index_shop" %}" class="text-decoration-none">بازگشت به صفحه اصلی</a>
@@ -75,7 +75,33 @@
       
 </div><br><br><br><br> 
 
-
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+  $(document).on('click',"#add-cart",function(event){
+    event.preventDefault() // check if click or not
+    $.ajax({
+      type : "POST",
+      url : '{% url "cart_add" %}',
+      data : {
+        Productss_count : $("#addon").val(),
+        Productss_id : $("#add-cart").val(),
+        Productss_state : $("#state option:selected").text(),
+        situation_state : $("#state option:selected").val(),
+        // security
+        csrfmiddlewaretoken : '{{csrf_token}}',
+        action : 'post',
+      },
+      success:function(json){
+        console.log(json);
+        document.getElementById("cart_quantity").textContent = json.count
+        location.reload();
+      },
+      error:function(xhr,errormsg,error){
+        console.error("Error",errormsg);
+      }
+    });
+  });
+</script> 
 
 {% endblock content_section_shop %}
 {% block footer_section_shop %}

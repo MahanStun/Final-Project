@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     "Shop",
     "Blog",
+    "cart",
 ]
 
 MIDDLEWARE = [
@@ -56,6 +57,7 @@ ROOT_URLCONF = 'cosmetics_project.urls'
 
 TEMPLATES = [
     {
+        'DIRS': [BASE_DIR / "templates" , BASE_DIR / "templates_shop" , BASE_DIR / "templates_cart"],
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
         'APP_DIRS': True,
@@ -65,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart',
             ],
         },
     },
