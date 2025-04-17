@@ -21,6 +21,7 @@
 <!-- Section-->
 
 <section class="py-5">
+  {% if Products %}
   {% for item in Products %}
   <div class="product-container">
     <div class="product-card">
@@ -34,7 +35,14 @@
   
     </div>
   </div>
+    
   {% endfor %}
+  {% else %}
+  <h1 class="container">
+    <span>&#9785;</span>
+    چیزی برای خرید وجود ندارد
+</h1>
+  {% endif %}
   </section>
 {% endblock content_section_shop %}
 

@@ -13,4 +13,6 @@ urlpatterns = [
     path("verifycation_code/", views.verifycation_code ,name="verifycation_code"),
     path("verify_code/", views.verify_code ,name="verify_code"),
     path("resend_code/", views.resend_code ,name="resend_code"),
+    path("verify_reset_code/", views.verify_reset_code ,name="verify_reset"),
+    path("forgot_password/", views.forgot_password ,name="forgot_password"),
 ]

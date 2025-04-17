@@ -1,0 +1,73 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 20px;
+}
+
+h2 {
+    color: #333;
+}
+
+form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    text-align: left;
+    width: 300px;
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+ h3{
+    color: red;
+    font-weight: bold;
+}
+footer {
+    background: linear-gradient(90deg, #3a6186, #89253e);    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+  
+  footer p {
+    margin: 0;
+  }
+#togglePassword i {
+    color: #ffffff; /* تغییر رنگ چشم به سفید */
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+#togglePassword:hover i {
+    color: #ffcc00; /* تغییر رنگ هنگام هاور روی چشم */
+}

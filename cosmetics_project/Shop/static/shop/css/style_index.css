@@ -168,4 +168,10 @@ body {
   .product-card button:hover {
     background-color: #0056b3;
   }
-  
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* کل ارتفاع صفحه */
+    text-align: center; /* مرکز چینش متن */
+}

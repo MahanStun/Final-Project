@@ -49,9 +49,57 @@ def login_user(request):
 
     else:
         return render(request, "Shop/login.html")
-def edit_user(request):
-    pass
+    
+def forgot_password(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        email = request.POST["email"]
+        
+        try:
+            user = User.objects.get(username=username, email=email)  # بررسی صحت نام کاربری و ایمیل
+            code = str(random.randint(100000, 999999))  # تولید کد تصادفی
+            request.session['reset_code'] = code  # ذخیره در نشست
+            request.session['user_email'] = email  # ذخیره ایمیل برای مرحله بعد
+            
+            send_mail(
+                'کد تأیید ورود',
+                f'کد تأیید شما: {code}',
+                'your_email@example.com',  # ایمیل ارسال‌کننده
+                [email],
+                fail_silently=False,
+            )
+            return redirect("verify_reset")  # انتقال به صفحه وارد کردن کد
 
+        except User.DoesNotExist:
+            messages.error(request, "نام کاربری یا ایمیل معتبر نیست")
+            return redirect("forgot_password")
+
+    return render(request, "Shop/forgot_password.html")
+
+
+def verify_reset_code(request):
+    if request.method == "POST":
+        entered_code = request.POST.get("reset_code")  # بررسی وجود مقدار
+        if entered_code and entered_code == request.session.get("reset_code"):
+            try:
+                user = User.objects.get(email=request.session.get("user_email"))
+                login(request, user)  # ورود موفق
+                
+                messages.success(request, "با موفقیت وارد شدید!")
+                
+                # حذف اطلاعات نشست پس از ورود موفق
+                del request.session['reset_code']
+                del request.session['user_email']
+
+                return redirect("index_blog")  # انتقال به صفحه اصلی
+            except User.DoesNotExist:
+                messages.error(request, "مشکلی در ورود به حساب وجود دارد.")
+                return redirect("forgot_password")
+        else:
+            messages.error(request, "کد وارد شده نامعتبر است، لطفاً دوباره تلاش کنید.")
+            return redirect("verify_reset")
+
+    return render(request, "Shop/verify_reset_code.html")
 
 
 

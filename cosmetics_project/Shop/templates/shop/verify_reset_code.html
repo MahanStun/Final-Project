@@ -17,24 +17,31 @@
     <!-- Header-->
     {% include "shop/includes/header.html" %}
 {% endblock header_section_shop %}
+    {% include "shop/includes/navbar.html" %}
 {% block content_section_shop %}
-
-<div class="container">
-  <h2 class="signup-title">ثبت نام</h2> <!-- اضافه کردن عنوان بالای فرم -->
-  <form method="post" dir="rtl" action="">
-      {% csrf_token %}
-      <div class="row justify-content-center">
-          <div class="col-7">
-              {{form.as_p}}
-              <div class="form-btn mt-3">
-                  <button type="submit" class="btn btn-primary">ثبت نام</button>
-              </div>
-          </div>
-      </div>
-  </form>
-</div>
-
-
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تأیید کد</title>
+</head>
+<body>
+    <h2>تأیید کد ورود</h2>
+    <form action="{% url 'verify_reset' %}" method="POST">
+        {% csrf_token %}
+        <label for="reset_code">کد ارسال‌شده به ایمیل را وارد کنید:</label>
+        <input type="text" id="reset_code" name="reset_code" required>
+        <button type="submit">ورود به حساب</button>
+    </form>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>
 {% endblock content_section_shop %}
 
 
