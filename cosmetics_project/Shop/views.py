@@ -148,33 +148,6 @@ def logout_user(request):
     logout(request)
     messages.success(request, ("از اکانت با موفقیت خارج شدید"))
     return redirect("index_blog")
-from django.shortcuts import render
-from django.http import HttpResponse
-
-from django.shortcuts import render
-from django.http import HttpResponse
-
-def quiz_view(request):
-    if request.method == "POST":
-        correct_answers = {
-            "q1": "Arthur_Morgan",
-            "q2": "HyperText"
-        }
-        user_answers = request.POST
-        score = 0
-        results = {}
-
-        for question, correct_answer in correct_answers.items():
-            user_answer = user_answers.get(question, "").strip()  # حذف فاصله‌های اضافی
-            if user_answer.lower() == correct_answer.lower():  # تطبیق حساسیت به حروف کوچک و بزرگ
-                results[question] = "✅ صحیح"
-                score += 1
-            else:
-                results[question] = "❌ غلط"
-
-        return render(request, "Shop/quiz_result.html", {"results": results, "score": score})
-
-    return HttpResponse("لطفاً از طریق فرم اقدام کنید.")
 
 def verifycation_code(request):
         return render(request, "Shop/verifycation_code.html")
@@ -208,5 +181,3 @@ def resend_code(request):
         messages.success(request, "کد جدید به ایمیل شما ارسال شد!")
         return redirect("verifycation_code")
 
-def exam(request):
-        return render(request, "Shop/exam.html")

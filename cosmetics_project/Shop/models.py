@@ -26,6 +26,8 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=12, default=0, decimal_places=0)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     picture = models.ImageField(upload_to="upload/cosmetics_picture/")
+    picture2 = models.ImageField(upload_to="upload/cosmetics_picture/")
+    picture3 = models.ImageField(upload_to="upload/cosmetics_picture/")
     is_sale = models.BooleanField(default=False)
     sale_price = models.DecimalField(default=0, decimal_places=0, max_digits=12)
     # percent_show = models.IntegerField()

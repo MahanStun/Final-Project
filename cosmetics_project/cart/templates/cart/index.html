@@ -1,5 +1,4 @@
 {% load static %}
-{% load humanize %} 
 
 
 
@@ -25,47 +24,83 @@
     
     {% endif %}
     <!-- Header-->
-    {% include "shop/includes/navbar.html" %}
-
     {% include "shop/includes/header.html" %}
+
+    {% include "shop/includes/navbar.html" %}
     <br><br>
     {% if cart_Productss  %}
     {% for Productss in cart_Productss  %}
-      <div class="container" dir="rtl">
-          <div class="card mb-3">
-              <div class="row g-0">
-                <div class="col-md-4">
-                  <img src="{{Productss.picture.url}}" class="img-fluid rounded-start" alt="...">
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="card-title p-2">{{Productss.name}}</h5>
-                    <p class="card-text p-2">{{Productss.description}}</p>
-                    {% if Productss.is_sale %}
-                    <div class="card-body d-flex flex-column w-50 m-0">
-                      <h2 class="sub-heading border border-5 p-3 m-0 rounded-5 text-center">{{Productss.sale_price | intcomma}} تومان</h2>
-                    </div>
-                    {% else %}
-                    <div class="card-body d-flex flex-column w-50 m-0">
-                      <h2 class="sub-heading border border-5 p-3 m-0 rounded-5 text-center">{{Productss.price | intcomma}} تومان</h2>
-                  </div>
- 
-                
-      
-                    {% endif %}
-                      <div class="p-3">
-                          <button type="button" class="btn btn-danger delete-cart" value="{{Productss.id}}" id="delete-cart" data-index="{{Productss.id}}">حذف از سبد خرید<i class="bi bi-cart"></i></button>
-                      <button type="button" class="btn btn-primary update-cart" >رفتن به درگاه خرید</button> 
+              <div class="container" dir="rtl" style="display: flex; justify-content: center; align-items: center; min-height: 100vh;">
+
+                  <div class="card mb-3">
+                      <div class="row g-0">
+                        <div class="col-md-4">
+                          <img src="{{Productss.picture.url}}" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                          <div class="card-body">
+                            <h5 class="card-title p-2">{{Productss.name}}</h5>
+                            <p class="card-text p-2">{{Productss.description}}</p>
+                            {% if Productss.is_sale %}
+                            <div class="card-body d-flex flex-column w-50 m-0">
+                              <h2 class="sub-heading border border-5 p-3 m-0 rounded-5 text-center">{{Productss.sale_price }} تومان</h2>
+                            </div>
+                            <div style="margin-top: 10px;">
+        
+                              <p style="display: inline-block; margin-right: 10px;">
+                              زبان :
+                              <select class="form-select " id="select{{Productss.id}}">
+                                
+                                  {% for key,value in session.items %}
+                                  {% if key == Productss.id|slugify %}
+                                  <option selected>{{value.state}}</option>
+                                  {% endif %}
+                                {% endfor %}
+                                <option value="Basic">callista </option>
+                                <option value="Intermediate">My</option>
+                                <option value="Advance">mac</option>
+                              </select>
+                              
+                              </p>
+                            </div>
+                            {% else %}
+                            <div class="card-body d-flex flex-column w-50 m-0">
+                              <h2 class="sub-heading border border-5 p-3 m-0 rounded-5 text-center">{{Productss.price }} تومان</h2>
+                          </div>
+                          <div style="margin-top: 10px;">
+                            <p>
+                            زبان :
+                            <select class="form-select" id="select{{Productss.id}}">
+        
+                                {% for key,value in session.items %}
+                                {% if key == Productss.id|slugify %}
+                                  <option selected >{{value.state}}</option>
+                                {% endif %}
+                              
+                              {% endfor %}
+                                <option value="Basic">callista </option>
+                                <option value="Intermediate">My</option>
+                                <option value="Advance">mac</option>
+                            </select>
+                            
+                            </p>
+                          </div>
+                        
+              
+                            {% endif %}
+                              <div class="p-3">
+                                  <button type="button" class="btn btn-danger delete-cart" value="{{Productss.id}}" id="delete-cart" data-index="{{Productss.id}}">حذف از سبد خرید<i class="bi bi-cart"></i></button>
+                              <button type="button" class="btn btn-primary update-cart" data-index={{Productss.id}}>ویرایش</button> 
+                              </div>
+                          </div>
+                        </div>
                       </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {% endfor %}
-            {% else %}
-            <h1 class="container text-center"> <span>&#9785;</span>
-              چیزی تو سبد خریدت نیست</h1>
-            {% endif %}
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <h1 class="container text-center"> <span>&#9785;</span>
+                      چیزی تو سبد خریدت نیست</h1>
+                    {% endif %}
     </div><br><br><br><br>      
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script>
@@ -91,8 +126,31 @@
         });
       </script>
     </div>
+    <script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+  $(document).on('click',".update-cart",function(event){
+    event.preventDefault() // check if click or not
 
-
+    var ProductssId = $(this).data("index")
+    $.ajax({
+      type : "POST",
+      url : '{% url "update" %}',
+      data : {
+        Productss_id : $(this).data("index"),
+        Productss_state : $("#select"+ProductssId+' option:selected').text(),
+        csrfmiddlewaretoken : '{{csrf_token}}',
+        action : 'post'
+      },
+      success:function(json){
+        location.reload();
+      },
+      error:function(xhr,errormsg,error){
+        console.error("Error",errormsg);
+      }
+    });
+  });
+</script> 
 
 {% endblock header_section_shop %}
 {% block footer_section_shop %}

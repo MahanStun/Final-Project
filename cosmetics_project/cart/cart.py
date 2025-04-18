@@ -38,6 +38,18 @@ class Cart:
 
         self.session.modified = True
         self.session["session_key2"] = self.cart
+    def update(self, Productss_id, Productss_state, Productss_price):
+        Productss_id = str(Productss_id)
+
+        copy_cart = self.cart
+        copy_cart[Productss_id] = {
+            "price": float(Productss_price),
+            "state": Productss_state,
+        }
+        self.session.modified = True
+
+        return self.cart
+
 
     def save(self):
         self.session["session_key2"] = json.dump(self.cart, default=decimal_default)

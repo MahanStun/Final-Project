@@ -18,7 +18,11 @@
     {% include "shop/includes/header.html" %}
 {% endblock header_section_shop %}
 {% block content_section_shop %}
-
+{% if messages %}
+{% for message in messages %}
+    <h3>{{ message }}</h3>
+{% endfor %}
+{% endif %}
 <div class="container">
   <h2 class="signup-title">ثبت نام</h2> <!-- اضافه کردن عنوان بالای فرم -->
   <form method="post" dir="rtl" action="">

@@ -1,5 +1,4 @@
 {% load static %}
-{% load humanize%}
 
 
 
@@ -42,21 +41,28 @@
   <div class="card mb-3" style="max-width: 540px;">
     <div class="row g-0">
       <div class="col-md-4">
-        <img src="{{Productss.picture.url}}" class="img-fluid rounded-start" alt="..." width="200" height="200">
+        <img src="{{Productss.picture.url}}" class="img-fluid rounded-start" alt="..." width="150" height="200">
+        <img src="{{Productss.picture2.url}}" class="img-fluid rounded-start" alt="..." width="150" height="200">
+        <img src="{{Productss.picture3.url}}" class="img-fluid rounded-start" alt="..." width="150" height="200">
       </div>
       <div class="col-md-8">
         <div class="card-body">
           <h5 class="card-title">اسم محصول:{{Productss.Product_name}}</h5>
-          <p class="card-text">برند:{{Productss.category}}</p>
+          <select class="form-select w-50" id="state">
+            <option selected value="noting">برند خود  را انتخاب کنید</option>
+            <option value="Basic">callista</option>
+            <option value="Intermediate">My</option>
+            <option value="Advance">mac</option>
+          </select>
           {% if Productss.is_sale %}
               
-          <p class="card-text">{{Productss.sale_price |intcomma}} تومان</p>
+          <h2 class="sub-heading border border-5 p-3 m-0 rounded-5 text-center">{{Productss.sale_price}} تومان</h2>
           {% else %}
           <div class="card-body d-flex flex-column w-50 m-0">
-            <h2 class="sub-heading border border-5 p-3 m-0 rounded-5 text-center">{{Productss.price |intcomma}} تومان</h2>
+            <h2 class="sub-heading border border-5 p-3 m-0 rounded-5 text-center">{{Productss.price}} تومان</h2>
         
         </div>
-       
+
 
           {% endif %}
           <button type="button" class="btn btn-dark" value="{{Productss.id}}" id="add-cart">افزودن به سبد خرید <i class="bi bi-cart"></i></button>
@@ -76,6 +82,7 @@
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
+  
   $(document).on('click',"#add-cart",function(event){
     event.preventDefault() // check if click or not
     $.ajax({

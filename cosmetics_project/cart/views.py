@@ -23,7 +23,6 @@ def cart_add(request):
 
         Productss_id = request.POST.get("Productss_id")
         Productss_state = request.POST.get("Productss_state")
-        Book_count = request.POST.get("Productss_count")
         situation_state = request.POST.get("situation_state")
         if situation_state == "noting":
             print("Please select the language you want your book to be in")
@@ -43,7 +42,23 @@ def cart_add(request):
     else:
         return JsonResponse({"error":"Invalid Request"},status=400)
 
-        
+from django.http import JsonResponse
+
+def cart_update(request):
+    cart = Cart(request)
+    if request.POST.get("action") == "post":
+        Productss_id = request.POST.get("Productss_id")
+        Productss_state = request.POST.get("Productss_state")
+        Productss_price = None
+        product = Product.objects.get(id=Productss_id)
+        if product.is_sale:
+            Productss_price = product.sale_price
+        else:
+            Productss_price = product.price
+
+        cart.update(Productss_id,Productss_state,Productss_price)
+        response =JsonResponse({"state":Productss_state})
+        return response
 def cart_delete(request):
     cart = Cart(request)
     Productss_id = request.POST.get("Productss_id")
