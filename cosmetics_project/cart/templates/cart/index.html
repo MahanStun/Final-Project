@@ -30,13 +30,22 @@
     <br><br>
     {% if cart_Productss  %}
     {% for Productss in cart_Productss  %}
+    <style>
+      .brand-image {
+          display: none; /* مخفی کردن تمام تصاویر */
+      }
+  </style>
+  
               <div class="container" dir="rtl" style="display: flex; justify-content: center; align-items: center; min-height: 100vh;">
 
                   <div class="card mb-3">
                       <div class="row g-0">
                         <div class="col-md-4">
-                          <img src="{{Productss.picture.url}}" class="img-fluid rounded-start" alt="...">
-                        </div>
+                          <img id="callistaImage" src="{{Productss.picture.url}}" class="img-fluid rounded-start brand-image" alt="callista" width="150" height="200">
+                          <img id="myImage" src="{{Productss.picture2.url}}" class="img-fluid rounded-start brand-image" alt="My" width="150" height="200">
+                          <img id="macImage" src="{{Productss.picture3.url}}" class="img-fluid rounded-start brand-image" alt="mac" width="150" height="200">
+                      </div>
+                      
                         <div class="col-md-8">
                           <div class="card-body">
                             <h5 class="card-title p-2">{{Productss.name}}</h5>
@@ -48,7 +57,7 @@
                             <div style="margin-top: 10px;">
         
                               <p style="display: inline-block; margin-right: 10px;">
-                              زبان :
+                              برند :
                               <select class="form-select " id="select{{Productss.id}}">
                                 
                                   {% for key,value in session.items %}
@@ -56,9 +65,9 @@
                                   <option selected>{{value.state}}</option>
                                   {% endif %}
                                 {% endfor %}
-                                <option value="Basic">callista </option>
-                                <option value="Intermediate">My</option>
-                                <option value="Advance">mac</option>
+                                <option value="callista">callista </option>
+                                <option value="my">My</option>
+                                <option value="mac">mac</option>
                               </select>
                               
                               </p>
@@ -69,7 +78,7 @@
                           </div>
                           <div style="margin-top: 10px;">
                             <p>
-                            زبان :
+                            برند :
                             <select class="form-select" id="select{{Productss.id}}">
         
                                 {% for key,value in session.items %}
@@ -78,9 +87,9 @@
                                 {% endif %}
                               
                               {% endfor %}
-                                <option value="Basic">callista </option>
-                                <option value="Intermediate">My</option>
-                                <option value="Advance">mac</option>
+                                <option value="callista">callista </option>
+                                <option value="my">My</option>
+                                <option value="mac">mac</option>
                             </select>
                             
                             </p>
@@ -102,6 +111,7 @@
                       چیزی تو سبد خریدت نیست</h1>
                     {% endif %}
     </div><br><br><br><br>      
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script>
         $(document).on('click',"#delete-cart",function(event){
@@ -128,29 +138,92 @@
     </div>
     <script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script>
-  $(document).on('click',".update-cart",function(event){
-    event.preventDefault() // check if click or not
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-    var ProductssId = $(this).data("index")
-    $.ajax({
-      type : "POST",
-      url : '{% url "update" %}',
-      data : {
-        Productss_id : $(this).data("index"),
-        Productss_state : $("#select"+ProductssId+' option:selected').text(),
-        csrfmiddlewaretoken : '{{csrf_token}}',
-        action : 'post'
-      },
-      success:function(json){
-        location.reload();
-      },
-      error:function(xhr,errormsg,error){
-        console.error("Error",errormsg);
-      }
-    });
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+      // بازیابی وضعیت انتخاب‌شده از localStorage هنگام بارگذاری صفحه
+      $(".brand-image").hide();
+
+      $("select.form-select").each(function () {
+          var ProductssId = $(this).attr("id");
+          var savedState = localStorage.getItem("brand_" + ProductssId);
+
+          if (savedState) {
+              $("#" + savedState + "Image").show();
+              $(this).val(savedState);
+          }
+      });
+
+      // تغییر تصویر هنگام انتخاب برند
+      $("select.form-select").on("change", function () {
+          var ProductssId = $(this).attr("id");
+          var selectedState = $(this).val();
+
+          console.log("ProductssId:", ProductssId);
+          console.log("Selected State:", selectedState);
+
+          $(".brand-image").fadeOut();
+          $("#" + selectedState + "Image").fadeIn();
+
+          localStorage.setItem("brand_" + ProductssId, selectedState);
+      });
+
+      // افزودن محصول به سبد خرید همراه با تصویر مرتبط
+      $(document).on("click", "#add-cart", function (event) {
+          event.preventDefault();
+
+          var ProductssId = $("#add-cart").val();
+          var selectedState = $("#state option:selected").val();
+          var selectedImage = $("#" + selectedState + "Image").attr("src");
+
+          console.log("Adding to Cart - ProductssId:", ProductssId);
+          console.log("Selected State:", selectedState);
+          console.log("Selected Image URL:", selectedImage);
+
+          if (!selectedImage) {
+              console.error("Error: Image not found!");
+              return;
+          }
+
+          $.ajax({
+              type: "POST",
+              url: '{% url "cart_add" %}',
+              data: {
+                  Productss_id: ProductssId,
+                  Productss_state: selectedState,
+                  Productss_image: selectedImage,
+                  csrfmiddlewaretoken: '{{csrf_token}}',
+                  action: "post",
+              },
+              success: function (json) {
+                  console.log("Added to Cart:", json);
+                  document.getElementById("cart_quantity").textContent = json.count;
+                  localStorage.setItem("cart_" + ProductssId, selectedImage);
+                  location.reload();
+              },
+              error: function (xhr, errormsg, error) {
+                  console.error("Error:", errormsg);
+              }
+          });
+      });
+
+      // بررسی تصویر مربوط به محصول هنگام بارگذاری سبد خرید
+      $(".brand-image").each(function () {
+          var ProductssId = $(this).attr("id").replace("Image", "");
+          var savedImage = localStorage.getItem("cart_" + ProductssId);
+
+          if (savedImage) {
+              $(this).attr("src", savedImage).show();
+          }
+      });
   });
-</script> 
+</script>
+
+
+
 
 {% endblock header_section_shop %}
 {% block footer_section_shop %}

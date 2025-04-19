@@ -25,7 +25,7 @@ def cart_add(request):
         Productss_state = request.POST.get("Productss_state")
         situation_state = request.POST.get("situation_state")
         if situation_state == "noting":
-            print("Please select the language you want your book to be in")
+            print("Please select your brand")
             return JsonResponse({"error": "Please select state of course"}, status=404)
         if not Productss_id:
             return JsonResponse({"error": "Please select state of course"}, status=404)

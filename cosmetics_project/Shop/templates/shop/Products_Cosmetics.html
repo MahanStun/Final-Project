@@ -41,19 +41,19 @@
   <div class="card mb-3" style="max-width: 540px;">
     <div class="row g-0">
       <div class="col-md-4">
-        <img src="{{Productss.picture.url}}" class="img-fluid rounded-start" alt="..." width="150" height="200">
-        <img src="{{Productss.picture2.url}}" class="img-fluid rounded-start" alt="..." width="150" height="200">
-        <img src="{{Productss.picture3.url}}" class="img-fluid rounded-start" alt="..." width="150" height="200">
+        <img id="callistaImage" src="{{Productss.picture.url}}" class="img-fluid rounded-start" alt="callista" width="150" height="200">
+        <img id="myImage" src="{{Productss.picture2.url}}" class="img-fluid rounded-start" alt="My" width="150" height="200">
+        <img id="macImage" src="{{Productss.picture3.url}}" class="img-fluid rounded-start" alt="mac" width="150" height="200">        
       </div>
       <div class="col-md-8">
         <div class="card-body">
           <h5 class="card-title">اسم محصول:{{Productss.Product_name}}</h5>
-          <select class="form-select w-50" id="state">
-            <option selected value="noting">برند خود  را انتخاب کنید</option>
-            <option value="Basic">callista</option>
-            <option value="Intermediate">My</option>
-            <option value="Advance">mac</option>
-          </select>
+          <select class="form-select w-50" id="state" onchange="changeImage()">
+            <option selected value="noting">برند خود را انتخاب کنید</option>
+            <option value="callista">callista</option>
+            <option value="my">My</option>
+            <option value="mac">mac</option>
+        </select>
           {% if Productss.is_sale %}
               
           <h2 class="sub-heading border border-5 p-3 m-0 rounded-5 text-center">{{Productss.sale_price}} تومان</h2>
@@ -79,7 +79,6 @@
 
       
 </div><br><br><br><br> 
-
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
   
