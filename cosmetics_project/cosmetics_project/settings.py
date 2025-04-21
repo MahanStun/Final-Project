@@ -136,3 +136,8 @@ EMAIL_PORT = 587  # شماره پورت
 EMAIL_USE_TLS = True  # استفاده از TLS
 EMAIL_HOST_USER = 'nejadimahan6@gmail.com'  # ایمیل شما
 EMAIL_HOST_PASSWORD = 'plwguseazwwpdhhx'  # رمز عبور ایمیل
+
+
+#ZARINPAL
+MERCHANT = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+SANDBOX = True

@@ -100,6 +100,10 @@
                               <div class="p-3">
                                   <button type="button" class="btn btn-danger delete-cart" value="{{Productss.id}}" id="delete-cart" data-index="{{Productss.id}}">حذف از سبد خرید<i class="bi bi-cart"></i></button>
                               <button type="button" class="btn btn-primary update-cart" data-index={{Productss.id}}>ویرایش</button> 
+                              <button type="button" class="btn btn-success" onclick="window.location.href='{% url "zarinpal" %}'">
+                                رفتن به درگاه خرید
+                            </button>
+                            
                               </div>
                           </div>
                         </div>

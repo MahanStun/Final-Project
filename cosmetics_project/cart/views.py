@@ -4,9 +4,72 @@ from Shop.models import Product
 from django.http import JsonResponse
 from django.contrib import messages
 import json
+from django.conf import settings
+import requests
+import random
+import string
 
 
+DESCRIPTION = "Thank you for purchasing from us"
 
+if settings.SANDBOX:
+    sandbox = "sandbox"
+else:
+    sandbox = "payment"
+ZP_API_REQUEST_URL = f"https://{sandbox}.zarinpal.com/pg/v4/payment/request.json"
+ZP_API_VERIFY_URL = f"https://{sandbox}.zarinpal.com/pg/v4/payment/verify.json"
+ZP_API_STARTPAY_URL = f"https://{sandbox}.zarinpal.com/pg/StartPay/"
+amount = 1000000
+callback_url = "http://127.0.0.1:8000/cart/verify"
+
+
+def payment_zarinpal(request):
+    data = {
+        "merchant_id" : settings.MERCHANT,
+        "amount" : amount,
+        "description" : DESCRIPTION,
+        "callback_url" : callback_url
+    }
+    res = requests.post(ZP_API_REQUEST_URL,json=data)
+    print("*"*100)
+    print(res.text)
+    print("*"*100)
+    if res.status_code == 200:
+        response = res.json()
+        if response["data"]["code"] == 100:
+            authority = response["data"]["authority"]
+            url = f"{ZP_API_STARTPAY_URL}{authority}"
+            return redirect(url)
+        else:
+            return HttpResponse("error from Zarinpal Website")
+    else:
+        return HttpResponse("error from Zarinpal Website")
+    
+def verify_payment(request):
+    authority = request.GET.get("Authority")
+    status = request.GET.get("Status")
+    data = {
+        "merchant_id" : settings.MERCHANT,
+        "amount" : amount,
+        "authority" : authority,
+    }
+    if status != "OK":
+        return HttpResponse("خرید شما به دلایلی انجام نشد لطفا با پشتیبانی تماس بگیرید")
+    res = requests.post(ZP_API_VERIFY_URL,json=data)
+    print(res.text)
+    
+    if res.status_code == 200:
+        response = res.json()
+        if response["data"]["code"] == 100:
+            post_code_for_order = ""
+            for i in range(10):
+               post_code_for_order += random.choice(string.digits)
+            return HttpResponse(f"خرید شما با موفقیت انجام شد کد رهگیری شما :{post_code_for_order}")
+        else:
+            return HttpResponse(f" پرداخت ناموفق بود {response['data']['message']}")
+    else:
+        return HttpResponse("خطا در برقراری اتصال به زرین پال")
+            
 def cart_summary(request):
     cart = Cart(request)
     cart_Productss = cart.get_prods()
