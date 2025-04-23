@@ -10,6 +10,7 @@ import random
 import string
 
 
+
 DESCRIPTION = "Thank you for purchasing from us"
 
 if settings.SANDBOX:
@@ -19,15 +20,17 @@ else:
 ZP_API_REQUEST_URL = f"https://{sandbox}.zarinpal.com/pg/v4/payment/request.json"
 ZP_API_VERIFY_URL = f"https://{sandbox}.zarinpal.com/pg/v4/payment/verify.json"
 ZP_API_STARTPAY_URL = f"https://{sandbox}.zarinpal.com/pg/StartPay/"
-amount = 1000000
+
 callback_url = "http://127.0.0.1:8000/cart/verify"
 
 
 def payment_zarinpal(request):
-
+    cart = Cart(request)
+    amount =  cart.total_price()
     data = {
     "merchant_id": settings.MERCHANT,
     "amount": amount,  # مقدار قیمت محصول باید صحیح باشد
+    "currency" : "IRT",
     "description": DESCRIPTION,
     "callback_url": callback_url
 }

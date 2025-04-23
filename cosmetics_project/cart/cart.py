@@ -63,6 +63,11 @@ class Cart:
     def get_real_session(self):
         return self.cart
 
+    def total_price(self):
+        total_price = 0
+        for every_id in self.cart:
+            total_price += self.cart[every_id]["price"]
+        return total_price
 
     def delete(self,products):
         Productss_id = str(products.id)
