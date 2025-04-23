@@ -13,6 +13,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from .forms import SignUpForm
+from django.core.paginator import Paginator
+
 # Create your views here.
 
 
@@ -22,8 +24,12 @@ def index_shop(request):
     if request.method == "POST":
         query = request.POST.get("search-course")
         if query:
-            Products = Product.objects.filter(Product_name__icontains=query) or Product.objects.filter(description__icontains = query)
-    return render(request, "shop/index.html", {"Products": Products})
+            Products = Product.objects.filter(Product_name__icontains=query)
+    paginator = Paginator(Products,3)
+    page_number = request.GET.get("page",1)
+    page_obj = paginator.get_page(page_number)
+    return render(request, "shop/index.html",{"Products": Products , "page_obj" : page_obj})
+
     #return HttpResponse("welcome")
 def Products_Cosmetics(request, pk):
     Productss = Product.objects.get(id=pk)
