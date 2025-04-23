@@ -186,13 +186,13 @@ def resend_code(request):
         return redirect("verifycation_code")
 
 def category(request, cat=None):
+    print(cat)
     if cat is not None:
-        cat = cat.replace("-", " ")
-    try:
+        # cat = cat.replace("-", " ")
+  
 
-        category = Category.objects.get(Product_name=cat)  # programing
+        category = Category.objects.get(slug=cat)  # programing
+        print(category)
         Products = Product.objects.filter(category=category)
         return render(request, "shop/category.html", {"Products": Products})
-    except:
-        messages.error(request, ("دسته بندی وجود ندارد"))
-        return render(request, "shop/404.html")
+   
