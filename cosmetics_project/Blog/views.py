@@ -50,3 +50,7 @@ class PostData(APIView):
         book.description = description
         book.image = image
         book.save()
+def index_Blog(request):
+    My_Blogs = My_Blog.objects.all()
+    return render(request, "Blog/index.html", {"My_Blogs": My_Blogs})
+    #return HttpResponse("welcome")

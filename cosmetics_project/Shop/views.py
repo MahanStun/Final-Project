@@ -35,7 +35,7 @@ def login_user(request):
             login(request, user)
             # EmailConfirmation(request, username, emailto,)
             messages.success(request, ("با موفقیت وارد اکانت شدید"))
-            return redirect("index_shop")
+            return redirect("index_blog")
         
         else:
             messages.error(request, ("ورود با خطا مواجه شده است"))
@@ -141,7 +141,7 @@ def signup_user(request):
 def logout_user(request):
     logout(request)
     messages.success(request, ("از اکانت با موفقیت خارج شدید"))
-    return redirect("index_shop")
+    return redirect("index_blog")
 
 def verifycation_code(request):
         return render(request, "Shop/verifycation_code.html")
@@ -152,7 +152,7 @@ def verify_code(request):
 
         if entered_code == saved_code:
             messages.success(request, "کد تأیید صحیح است. حساب شما تأیید شد!")
-            return redirect("index_shop")
+            return redirect("index_blog")
         else:
             messages.error(request, "کد تأیید اشتباه است! لطفاً دوباره امتحان کنید.")
             return redirect("verifycation_code")

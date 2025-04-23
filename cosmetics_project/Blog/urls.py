@@ -7,4 +7,5 @@ urlpatterns = [
     path("get-all-data/", GetAllData.as_view()),
     path("post-model/", PostModelData.as_view()),
     path("post-data/", PostData.as_view()),
+    path("", views.index_Blog, name="index_blog"),
 ]

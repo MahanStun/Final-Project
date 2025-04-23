@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="{% static "blog/index.css" %}">
 {% if user.is_authenticated %}
 <nav>
+    <a href="{% url "index_blog" %}">خانه</a>
     <a href="{% url "index_shop" %}">بخش خرید لوازم ارایش</a>
     <a href="{% url "logout_url" %}">خارج شدن</a>
 </nav>
