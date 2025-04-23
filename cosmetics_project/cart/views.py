@@ -24,12 +24,14 @@ callback_url = "http://127.0.0.1:8000/cart/verify"
 
 
 def payment_zarinpal(request):
+
     data = {
-        "merchant_id" : settings.MERCHANT,
-        "amount" : amount,
-        "description" : DESCRIPTION,
-        "callback_url" : callback_url
-    }
+    "merchant_id": settings.MERCHANT,
+    "amount": amount,  # مقدار قیمت محصول باید صحیح باشد
+    "description": DESCRIPTION,
+    "callback_url": callback_url
+}
+
     res = requests.post(ZP_API_REQUEST_URL,json=data)
     print("*"*100)
     print(res.text)

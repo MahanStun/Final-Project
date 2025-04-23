@@ -10,67 +10,43 @@ from django.urls import reverse_lazy
 from django.views import generic
 from .models import *
 from .forms import *
-all_posts = [
-    {
-        "slug": "learning-django",
-        "title": "django-course",
-        "author": "Behnam alamshahi",
-        "image": "django.png",
-        "date": date(2023, 4, 5),
-        "short_description": "this is django from zero to 100",
-        "content": "    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam alias illum aliquam quos ipsum, quo facilis sapiente numquam. Assumenda dignissimos doloremque exercitationem odio vero temporibus ducimus harum perspiciatis, maiores reprehenderit, praesentium illo dicta. Reiciendis error doloribus ab magni cumque, sapiente tempora cum autem, repellat sed, illo culpa animi fuga. Rerum.",
-    },
-    {
-        "slug": "learning-js",
-        "title": "js-course",
-        "author": "Behnam alamshahi",
-        "image": "js.png",
-        "date": date(2023, 2, 5),
-        "short_description": "this is django from zero to 100",
-        "content": "    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam alias illum aliquam quos ipsum, quo facilis sapiente numquam. Assumenda dignissimos doloremque exercitationem odio vero temporibus ducimus harum perspiciatis, maiores reprehenderit, praesentium illo dicta. Reiciendis error doloribus ab magni cumque, sapiente tempora cum autem, repellat sed, illo culpa animi fuga. Rerum.",
-    },
-    {
-        "slug": "Machine Learning",
-        "title": "Ml-course",
-        "author": "Behnam alamshahi",
-        "image": "ml.png",
-        "date": date(2023, 9, 5),
-        "short_description": "this is django from zero to 100",
-        "content": "    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam alias illum aliquam quos ipsum, quo facilis sapiente numquam. Assumenda dignissimos doloremque exercitationem odio vero temporibus ducimus harum perspiciatis, maiores reprehenderit, praesentium illo dicta. Reiciendis error doloribus ab magni cumque, sapiente tempora cum autem, repellat sed, illo culpa animi fuga. Rerum.",
-    },
-    {
-        "slug": "learning-python",
-        "title": "python-course",
-        "author": "Behnam alamshahi",
-        "image": "python.png",
-        "date": date(2023, 11, 5),
-        "short_description": "this is django from zero to 100",
-        "content": "    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam alias illum aliquam quos ipsum, quo facilis sapiente numquam. Assumenda dignissimos doloremque exercitationem odio vero temporibus ducimus harum perspiciatis, maiores reprehenderit, praesentium illo dicta. Reiciendis error doloribus ab magni cumque, sapiente tempora cum autem, repellat sed, illo culpa animi fuga. Rerum.",
-    },
-]
+from rest_framework.views import APIView
+from .serializers import MyBlogSerializers
+from rest_framework.response import Response
+from rest_framework import status
 
 
-# Create your views here.
-def get_date(post):
-    return post["date"]
 
-
-def index(request):
-    # sorted_post = sorted(all_posts, key=get_date)
-    My_Blogs = My_Blog.objects.all()
-    return render(request, "Blog/index.html", {"My_Blogs": My_Blogs})
-    #return HttpResponse("welcome")
+class GetAllData(APIView):
+    def get(self, request):
+        query = My_Blog.objects.all()
+        serializers = MyBlogSerializers(query, many=True)
+        return Response(serializers.data,status=status.HTTP_200_OK)
 
     
-def posts(request):
-    return HttpResponse("All posts")
+class PostModelData(APIView):
+    def post(self, request):
+        serializers = MyBlogSerializers(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.data, status=status.HTTP_400_BAD_REQUEST)
 
 
-def single_post(request):
-    return HttpResponse("every post")
+class PostData(APIView):
+    def post(self, request):
+        serializers = MyBlogSerializers(data=request.data)
+        if serializers.is_valid():
+            name = serializers.data.get("name")
+            description = serializers.data.get("description")
+            image = request.FILES["image"]
+            self.add_data_to_db(name, description, image)
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class PasswordssChangeView(PasswordChangeView):
-    form_class = PasswordChangingForm
-    success_url = reverse_lazy('password_success')
-def password_success(request):
-    return render(request, "Shop/password_success.html", {} )
+    def add_data_to_db(self, name, description, image, fav):
+        book = My_Blog()
+        book.name = name
+        book.description = description
+        book.image = image
+        book.save()

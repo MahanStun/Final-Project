@@ -74,8 +74,8 @@
                             </div>
                             {% else %}
                             <div class="card-body d-flex flex-column w-50 m-0">
-                              <h2 class="sub-heading border border-5 p-3 m-0 rounded-5 text-center">{{Productss.price }} تومان</h2>
-                          </div>
+                              <h2 id="Productss_price" name="Productss_price" class="sub-heading border border-5 p-3 m-0 rounded-5 text-center">{{Productss.price}} تومان</h2>
+                            </div>
                           <div style="margin-top: 10px;">
                             <p>
                             برند :
@@ -223,8 +223,11 @@
               $(this).attr("src", savedImage).show();
           }
       });
+
+
   });
 </script>
+
 
 
 

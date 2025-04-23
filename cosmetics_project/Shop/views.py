@@ -14,12 +14,6 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from .forms import SignUpForm
 # Create your views here.
-class UserEditView(generic.UpdateView):
-    form_class = UserChangeForm
-    template_name = "Shop/setting.html"
-    success_url = reverse_lazy("index_blog")
-    def get_object(self):
-        return self.request.user
 
 
 
@@ -41,7 +35,7 @@ def login_user(request):
             login(request, user)
             # EmailConfirmation(request, username, emailto,)
             messages.success(request, ("با موفقیت وارد اکانت شدید"))
-            return redirect("index_blog")
+            return redirect("index_shop")
         
         else:
             messages.error(request, ("ورود با خطا مواجه شده است"))
@@ -91,7 +85,7 @@ def verify_reset_code(request):
                 del request.session['reset_code']
                 del request.session['user_email']
 
-                return redirect("index_blog")  # انتقال به صفحه اصلی
+                return redirect("index_shop")  # انتقال به صفحه اصلی
             except User.DoesNotExist:
                 messages.error(request, "مشکلی در ورود به حساب وجود دارد.")
                 return redirect("forgot_password")
@@ -147,7 +141,7 @@ def signup_user(request):
 def logout_user(request):
     logout(request)
     messages.success(request, ("از اکانت با موفقیت خارج شدید"))
-    return redirect("index_blog")
+    return redirect("index_shop")
 
 def verifycation_code(request):
         return render(request, "Shop/verifycation_code.html")
@@ -158,7 +152,7 @@ def verify_code(request):
 
         if entered_code == saved_code:
             messages.success(request, "کد تأیید صحیح است. حساب شما تأیید شد!")
-            return redirect("index_blog")
+            return redirect("index_shop")
         else:
             messages.error(request, "کد تأیید اشتباه است! لطفاً دوباره امتحان کنید.")
             return redirect("verifycation_code")
