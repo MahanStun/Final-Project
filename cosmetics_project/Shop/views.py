@@ -192,7 +192,5 @@ def category(request, cat=None):
   
 
         category = Category.objects.get(slug=cat)  # programing
-        print(category)
         Products = Product.objects.filter(category=category)
         return render(request, "shop/category.html", {"Products": Products})
-   

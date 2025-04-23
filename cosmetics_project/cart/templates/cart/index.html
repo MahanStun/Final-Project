@@ -24,9 +24,7 @@
     
     {% endif %}
     <!-- Header-->
-    {% include "shop/includes/header.html" %}
 
-    {% include "shop/includes/navbar.html" %}
     <br><br>
     {% if cart_Productss  %}
     {% for Productss in cart_Productss  %}
@@ -100,9 +98,7 @@
                               <div class="p-3">
                                   <button type="button" class="btn btn-danger delete-cart" value="{{Productss.id}}" id="delete-cart" data-index="{{Productss.id}}">حذف از سبد خرید<i class="bi bi-cart"></i></button>
                               <button type="button" class="btn btn-primary update-cart" data-index={{Productss.id}}>ویرایش</button> 
-                              <button type="button" class="btn btn-success" onclick="window.location.href='{% url "zarinpal" %}'">
-                                رفتن به درگاه خرید
-                            </button>
+
                             
                               </div>
                           </div>
@@ -110,6 +106,9 @@
                       </div>
                     </div>
                     {% endfor %}
+                    <button type="button" class="btn btn-success" onclick="window.location.href='{% url "zarinpal" %}'">
+                      رفتن به درگاه خرید
+                  </button>
                     {% else %}
                     <h1 class="container text-center"> <span>&#9785;</span>
                       چیزی تو سبد خریدت نیست</h1>
@@ -234,6 +233,5 @@
 
 {% endblock header_section_shop %}
 {% block footer_section_shop %}
-    <!-- Footer-->
-    {% include "shop/includes/footer.html" %}
+
 {% endblock  %}
