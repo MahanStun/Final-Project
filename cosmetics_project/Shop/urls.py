@@ -13,4 +13,6 @@ urlpatterns = [
     path("resend_code/", views.resend_code ,name="resend_code"),
     path("verify_reset_code/", views.verify_reset_code ,name="verify_reset"),
     path("forgot_password/", views.forgot_password ,name="forgot_password"),
+    path("category/<str:cat>", views.category, name="category_url"),
+    path("error_category", views.category, name="errorPage"),
 ]

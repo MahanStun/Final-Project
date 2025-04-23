@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحه 404 - پیدا نشد</title>
+    <style>
+        body {
+            background: #1e1e1e;
+            color: #fff;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .glitch {
+            font-size: 100px;
+            font-weight: bold;
+            position: relative;
+            animation: glitch 1s infinite;
+        }
+        @keyframes glitch {
+            0% { text-shadow: 2px 2px red; }
+            25% { text-shadow: -2px -2px green; }
+            50% { text-shadow: 4px 4px blue; }
+            75% { text-shadow: -4px -4px yellow; }
+            100% { text-shadow: 2px 2px red; }
+        }
+        .back-home {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background: #ff0000;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .back-home:hover {
+            background: #b30000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="glitch">404</div>
+        <p>متأسفیم، صفحه مورد نظر پیدا نشد!</p>
+        <button class="back-home" onclick="window.location.href='{% url "index_shop" %}'">بازگشت به صفحه اصلی</button>
+    </div>
+</body>
+</html>

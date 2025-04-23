@@ -21,6 +21,26 @@
 <!-- Section-->
 
 <section class="py-5">
+  <div class="form-container">
+  <form action="" method="post">
+    {% csrf_token %}
+    <div class="row height d-flex justify-content-center align-items-center">
+      <div class="col-md-6">
+          <div class="form">
+              <div>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-search" >Search</i>
+                </button>
+              </div>
+              <input type="text" class="form-control form-input" placeholder="Search Course ..." name="search-course"> <span class="left-pan"><i class="fa fa-microphone"></i>
+              </span>
+          </div>
+
+      </div>
+
+    </div>
+
+  </form>
+</div>
   {% if Products %}
   {% for item in Products %}
   <div class="product-container">

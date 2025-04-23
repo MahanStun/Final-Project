@@ -88,3 +88,68 @@ footer {
 footer p {
     margin: 0;
 }
+.navbar.dark-mode {
+    background-color: #1d1d1d;
+    color: #ffffff !important;
+  }
+  .link-style {
+    background: none; /* حذف بک‌گراند */
+    border: none; /* حذف مرزها */
+    color: #ffffff; /* استفاده از رنگ متن والد */
+    font-family: inherit; /* استفاده از فونت والد */
+    font-size: inherit; /* استفاده از اندازه فونت والد */
+    cursor: pointer; /* نشانگر ماوس شبیه لینک شود */
+    text-decoration: none; /* حذف زیرخط */
+    padding: 0; /* حذف فاصله داخلی */
+  }
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown button {
+    background-color: #008cba;
+    color: white;
+    padding: 12px 16px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background: linear-gradient(90deg, #3a6186, #89253e);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5px;
+    padding: 10px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+}
+
+.dropdown-content a:last-child {
+    border-bottom: none;
+}
+
+.dropdown-content a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}

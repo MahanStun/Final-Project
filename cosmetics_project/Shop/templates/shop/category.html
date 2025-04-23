@@ -1,0 +1,97 @@
+{% extends "base_shop.html" %}
+{% load static %}
+{% load humanize %} 
+
+
+{% block title %}
+    دوره ها
+{% endblock title %}
+
+
+{% block header_refrences %}
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{% static "shop/css/styles.css" %}" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static "shop/css/style_product.css" %}">
+{% endblock header_refrences %}
+
+{% block header_section_shop  %}
+    <!-- Navigation-->
+    {% include "shop/includes/navbar.html" %}
+
+    {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-warning alert-dismissible fade show text-end" role="alert">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      
+      {% endfor %}
+    
+    {% endif %}
+    <!-- Header-->
+    {% include "shop/includes/header.html" %}
+{% endblock header_section_shop %}
+
+{% block content_section_shop %}
+<br><br>
+<div class="container px-4 px-lg-5 mt-5">
+    <div
+      class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
+    >
+        {% for item in Products %}
+        <div class="col mb-5">
+        <div class="card h-100">
+            <!-- Product image-->
+            {% if item.is_sale %}
+            <div
+            class="badge bg-dark text-white position-absolute"
+            style="top: 0.5rem; right: 0.5rem"
+            >
+            فروش ویژه
+            </div>
+            {% endif %}
+            <img class="card-img-top" src="{{item.picture.url}}" alt="..." />
+            <!-- Product details-->
+            <div class="card-body p-4">
+            <div class="text-center">
+                <!-- Product name-->
+                <h5 class="fw-bolder">{{item.name}}</h5>
+                <!-- Product price-->
+                {% if item.is_sale %}
+                <span class="text-muted text-decoration-line-through"
+                >{{item.price |intcomma}}</span
+                >
+                {{item.sale_price |intcomma}}
+                <span>تومان</span>
+                {% else %} {{item.price | intcomma}}
+                <span>تومان</span>
+                {% endif %}
+            </div>
+            <div class="text-center mt-2">
+                <p>{{item.description}}</p>
+            </div>
+            </div>
+
+            <!-- Product actions-->
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+            <div class="text-center">
+                <a class="btn btn-outline-dark mt-auto" href="{% url "product" item.id %}">خرید دوره</a>
+            </div>
+            </div>
+        </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</div><br><br><br><br>
+{% endblock content_section_shop %}
+{% block footer_section_shop %}
+    <!-- Footer-->
+    {% include "shop/includes/footer.html" %}
+{% endblock  %}

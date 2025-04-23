@@ -168,3 +168,110 @@ body {
   .product-card button:hover {
     background-color: #0056b3;
   }
+  .form {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    background: #ffffff;
+    border-radius: 30px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+}
+
+.form-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 20px;
+    transition: 0.3s ease-in-out;
+}
+
+.form-input::placeholder {
+    color: #aaa;
+}
+
+.form-input:focus {
+    box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
+}
+
+.btn-primary {
+    border-radius: 20px;
+    padding: 10px 15px;
+    font-size: 16px;
+    background: #007bff;
+    color: #fff;
+    transition: 0.3s ease;
+    border: none;
+}
+
+.btn-primary:hover {
+    background: #0056b3;
+}
+
+.left-pan {
+    position: absolute;
+    right: 15px;
+    color: #007bff;
+    font-size: 18px;
+    cursor: pointer;
+}
+.form-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 400px;
+  background: #ffffff;
+  border-radius: 30px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+}
+
+.form-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 20px;
+  transition: 0.3s ease-in-out;
+}
+
+.btn-primary {
+  border-radius: 20px;
+  padding: 10px 15px;
+  font-size: 16px;
+  background: #007bff;
+  color: #fff;
+  transition: 0.3s ease;
+  border: none;
+}
+
+.btn-primary:hover {
+  background: #0056b3;
+}
+.form-container {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 400px;
+  background: #ffffff;
+  border-radius: 30px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  z-index: 1000; /* مقدار بالا برای اطمینان از قرارگیری در بالای سایر عناصر */
+}
+
+.form-container {
+  margin-top: 80px; /* مقدار را بر اساس ارتفاع navbar تنظیم کنید */
+}
+.products-container {
+  padding-top: 1%; /* مقدار مناسب را انتخاب کنید تا محصولات پایین‌تر بیایند */
+}

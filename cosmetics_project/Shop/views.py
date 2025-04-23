@@ -19,6 +19,10 @@ from .forms import SignUpForm
 
 def index_shop(request):
     Products = Product.objects.all()
+    if request.method == "POST":
+        query = request.POST.get("search-course")
+        if query:
+            Products = Product.objects.filter(Product_name__icontains=query) or Product.objects.filter(description__icontains = query)
     return render(request, "shop/index.html", {"Products": Products})
     #return HttpResponse("welcome")
 def Products_Cosmetics(request, pk):
@@ -175,3 +179,14 @@ def resend_code(request):
         messages.success(request, "کد جدید به ایمیل شما ارسال شد!")
         return redirect("verifycation_code")
 
+def category(request, cat=None):
+    if cat is not None:
+        cat = cat.replace("-", " ")
+    try:
+
+        category = Category.objects.get(Product_name=cat)  # programing
+        Products = Product.objects.filter(category=category)
+        return render(request, "shop/category.html", {"Products": Products})
+    except:
+        messages.error(request, ("دسته بندی وجود ندارد"))
+        return render(request, "shop/404.html")
