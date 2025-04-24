@@ -1,277 +1,97 @@
-/* محصولات - کانتینر اصلی */
-/* General reset for body and default styling */
+/* تنظیمات عمومی */
 body {
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
-  }
-  
-  /* Header styling */
-  header {
-    background: linear-gradient(90deg, #3a6186, #89253e);
-    padding: 1rem;
-    text-align: center;
-    color: white;
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-  
-  /* Product grid container */
-  .products {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  /* Product card */
-  .product-card {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  }
-  
-  .product-card img {
-    width: 100%;
-    height: 160px;
-    object-fit: cover;
-  }
-  
-  .product-card .card-content {
-    padding: 15px;
-    text-align: center;
-  }
-  
-  .product-card .product-name {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin: 10px 0;
-    color: #007bff;
-  }
-  
-  .product-card .price {
-    font-size: 1rem;
-    color: #28a745;
-    font-weight: bold;
-  }
-  
-  .product-card .price .old-price {
-    font-size: 0.9rem;
-    color: #888;
-    text-decoration: line-through;
-    margin-right: 5px;
-  }
-  
-  /* Add-to-cart button */
-  .product-card button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    margin-top: 10px;
-    font-size: 0.9rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .product-card button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Footer */
-  footer {
-    background: linear-gradient(90deg, #3a6186, #89253e);    color: white;
-    padding: 15px;
-    text-align: center;
-    font-size: 0.9rem;
-  }
-  
-  footer p {
-    margin: 0;
-  }
-  
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+}
 
-
+/* تنظیمات بخش محصولات */
 .product-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px; /* فاصله بین محصولات */
-    padding: 20px;
-  }
-  
-  /* استایل کارت محصول */
-  .product-card {
-    width: 220px; /* عرض هر محصول */
-    border-radius: 8px;
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  }
-  
-  /* تصویر محصول */
-  .product-card img {
-    width: 100%;
-    height: 160px;
-    object-fit: cover;
-    border-bottom: 1px solid #ccc;
-  }
-  
-  /* محتوای کارت محصول */
-  .product-card .card-content {
-    padding: 15px;
-    text-align: center;
-  }
-  
-  .product-card h4 {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin: 10px 0;
-    color: #007bff;
-  }
-  
-  .product-card .price {
-    font-size: 1rem;
-    color: #28a745;
-    font-weight: bold;
-  }
-  
-  /* دکمه افزودن به سبد خرید */
-  .product-card button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    margin-top: 10px;
-    font-size: 0.9rem;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .product-card button:hover {
-    background-color: #0056b3;
-  }
-  .form {
-    position: relative;
-    width: 100%;
-    max-width: 400px;
-    background: #ffffff;
-    border-radius: 30px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
 }
 
-.form-input {
-    flex: 1;
-    border: none;
-    outline: none;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 20px;
-    transition: 0.3s ease-in-out;
+.product-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 250px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.form-input::placeholder {
-    color: #aaa;
+.product-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.form-input:focus {
-    box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
-}
-
-.btn-primary {
-    border-radius: 20px;
-    padding: 10px 15px;
-    font-size: 16px;
-    background: #007bff;
-    color: #fff;
-    transition: 0.3s ease;
-    border: none;
-}
-
-.btn-primary:hover {
-    background: #0056b3;
-}
-
-.left-pan {
-    position: absolute;
-    right: 15px;
-    color: #007bff;
-    font-size: 18px;
-    cursor: pointer;
-}
-.form-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.product-card img {
   width: 100%;
-  max-width: 400px;
-  background: #ffffff;
-  border-radius: 30px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 10px 20px;
+  height: auto;
+  border-bottom: 2px solid #f0f0f0;
 }
 
-.form-input {
-  width: 100%;
+.card-content {
+  padding: 15px;
+  text-align: center;
+}
+
+.card-content h4 {
+  margin: 10px 0;
+  color: #4CAF50;
+}
+
+.card-content p.price {
+  margin: 5px 0;
+  font-weight: bold;
+  color: #007BFF;
+}
+
+/* تنظیمات دکمه‌ها */
+button {
+  background: linear-gradient(90deg, #3a6186, #89253e);
+  color: white;
   border: none;
-  outline: none;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 20px;
-  transition: 0.3s ease-in-out;
-}
-
-.btn-primary {
-  border-radius: 20px;
   padding: 10px 15px;
-  font-size: 16px;
-  background: #007bff;
-  color: #fff;
-  transition: 0.3s ease;
-  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.btn-primary:hover {
-  background: #0056b3;
-}
-.form-container {
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 400px;
-  background: #ffffff;
-  border-radius: 30px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 10px 20px;
-  z-index: 1000; /* مقدار بالا برای اطمینان از قرارگیری در بالای سایر عناصر */
+button:hover {
+  background: linear-gradient(90deg, #3a6186, #89253e);
+  transform: scale(1.1);
 }
 
-.form-container {
-  margin-top: 80px; /* مقدار را بر اساس ارتفاع navbar تنظیم کنید */
+/* انیمیشن ورود محصولات */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
 }
-.products-container {
-  padding-top: 1%; /* مقدار مناسب را انتخاب کنید تا محصولات پایین‌تر بیایند */
+
+.product-card {
+  animation: fadeIn 0.8s ease-in-out;
+}
+/* تنظیمات لینک‌ها */
+a {
+  color: #000000; /* رنگ جذاب (نارنجی روشن) */
+  text-decoration: none; /* حذف خط زیر لینک‌ها */
+  font-weight: bold; /* متن لینک کمی برجسته‌تر شود */
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+a:hover {
+  color: #C70039; /* رنگ جذاب‌تر هنگام هاور (قرمز تیره) */
+  transform: scale(1.1); /* کمی بزرگتر شدن لینک هنگام هاور */
 }

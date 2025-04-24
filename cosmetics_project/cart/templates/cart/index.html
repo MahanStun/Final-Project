@@ -9,7 +9,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <link href="{% static 'styles.css' %}" rel="stylesheet" />
 {% endblock header_refrences %}
-
+  {% include "shop/includes/header.html" %}
+  {% include "shop/includes/navbar.html" %}
 {% block header_section_shop  %}
     <!-- Navigation-->
 
@@ -28,11 +29,6 @@
     <br><br>
     {% if cart_Productss  %}
     {% for Productss in cart_Productss  %}
-    <style>
-      .brand-image {
-          display: none; /* مخفی کردن تمام تصاویر */
-      }
-  </style>
   
               <div class="container" dir="rtl" style="display: flex; justify-content: center; align-items: center; min-height: 100vh;">
 
@@ -55,7 +51,7 @@
                             <div style="margin-top: 10px;">
         
                               <p style="display: inline-block; margin-right: 10px;">
-                              برند :
+                              شماره :
                               <select class="form-select " id="select{{Productss.id}}">
                                 
                                   {% for key,value in session.items %}
@@ -63,9 +59,9 @@
                                   <option selected>{{value.state}}</option>
                                   {% endif %}
                                 {% endfor %}
-                                <option value="callista">callista </option>
-                                <option value="my">My</option>
-                                <option value="mac">mac</option>
+                                <option value="001">001 </option>
+                                <option value="002">002</option>
+                                <option value="003">003</option>
                               </select>
                               
                               </p>
@@ -76,7 +72,7 @@
                             </div>
                           <div style="margin-top: 10px;">
                             <p>
-                            برند :
+                            شماره :
                             <select class="form-select" id="select{{Productss.id}}">
         
                                 {% for key,value in session.items %}
@@ -85,9 +81,9 @@
                                 {% endif %}
                               
                               {% endfor %}
-                                <option value="callista">callista </option>
-                                <option value="my">My</option>
-                                <option value="mac">mac</option>
+                                <option value="001">001 </option>
+                                <option value="002">002</option>
+                                <option value="003">003</option>
                             </select>
                             
                             </p>
@@ -139,99 +135,36 @@
         });
       </script>
     </div>
-    <script>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
 <script>
-  $(document).ready(function () {
-      // بازیابی وضعیت انتخاب‌شده از localStorage هنگام بارگذاری صفحه
-      $(".brand-image").hide();
+  $(document).on('click',".update-cart",function(event){
+    event.preventDefault() // check if click or not
 
-      $("select.form-select").each(function () {
-          var ProductssId = $(this).attr("id");
-          var savedState = localStorage.getItem("brand_" + ProductssId);
-
-          if (savedState) {
-              $("#" + savedState + "Image").show();
-              $(this).val(savedState);
-          }
-      });
-
-      // تغییر تصویر هنگام انتخاب برند
-      $("select.form-select").on("change", function () {
-          var ProductssId = $(this).attr("id");
-          var selectedState = $(this).val();
-
-          console.log("ProductssId:", ProductssId);
-          console.log("Selected State:", selectedState);
-
-          $(".brand-image").fadeOut();
-          $("#" + selectedState + "Image").fadeIn();
-
-          localStorage.setItem("brand_" + ProductssId, selectedState);
-      });
-
-      // افزودن محصول به سبد خرید همراه با تصویر مرتبط
-      $(document).on("click", "#add-cart", function (event) {
-          event.preventDefault();
-
-          var ProductssId = $("#add-cart").val();
-          var selectedState = $("#state option:selected").val();
-          var selectedImage = $("#" + selectedState + "Image").attr("src");
-
-          console.log("Adding to Cart - ProductssId:", ProductssId);
-          console.log("Selected State:", selectedState);
-          console.log("Selected Image URL:", selectedImage);
-
-          if (!selectedImage) {
-              console.error("Error: Image not found!");
-              return;
-          }
-
-          $.ajax({
-              type: "POST",
-              url: '{% url "cart_add" %}',
-              data: {
-                  Productss_id: ProductssId,
-                  Productss_state: selectedState,
-                  Productss_image: selectedImage,
-                  csrfmiddlewaretoken: '{{csrf_token}}',
-                  action: "post",
-              },
-              success: function (json) {
-                  console.log("Added to Cart:", json);
-                  document.getElementById("cart_quantity").textContent = json.count;
-                  localStorage.setItem("cart_" + ProductssId, selectedImage);
-                  location.reload();
-              },
-              error: function (xhr, errormsg, error) {
-                  console.error("Error:", errormsg);
-              }
-          });
-      });
-
-      // بررسی تصویر مربوط به محصول هنگام بارگذاری سبد خرید
-      $(".brand-image").each(function () {
-          var ProductssId = $(this).attr("id").replace("Image", "");
-          var savedImage = localStorage.getItem("cart_" + ProductssId);
-
-          if (savedImage) {
-              $(this).attr("src", savedImage).show();
-          }
-      });
-
-
+    var ProductssId = $(this).data("index")
+    $.ajax({
+      type : "POST",
+      url : '{% url "update" %}',
+      data : {
+        Productss_id : $(this).data("index"),
+        Productss_state : $("#select"+ProductssId+' option:selected').text(),
+        csrfmiddlewaretoken : '{{csrf_token}}',
+        action : 'post'
+      },
+      success:function(json){
+        location.reload();
+      },
+      error:function(xhr,errormsg,error){
+        console.error("Error",errormsg);
+      }
+    });
   });
-</script>
-
-
+</script> 
 
 
 
 {% endblock header_section_shop %}
 {% block footer_section_shop %}
-
+{% include "shop/includes/footer.html" %}
 {% endblock  %}

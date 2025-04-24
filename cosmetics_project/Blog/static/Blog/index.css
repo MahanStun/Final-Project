@@ -1,4 +1,5 @@
 /* تنظیمات عمومی */
+/* تنظیمات عمومی */
 body {
     font-family: "Vazirmatn", sans-serif;
     background-color: #f5f5f5;
@@ -6,6 +7,212 @@ body {
     padding: 0;
     color: #333;
     line-height: 1.7;
+    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+
+/* حالت شب */
+.dark-mode {
+    background-color: #1d1d1d;
+    color: #ffffff;
+}
+
+header, nav, footer {
+    background: linear-gradient(90deg, #3a6186, #89253e);
+    transition: background 0.5s ease-in-out;
+}
+
+/* افکت‌های متن */
+h1, h2, p {
+    opacity: 0;
+    animation: fadeInUp 1s ease-in-out forwards;
+}
+
+h1 {
+    animation-delay: 0.3s;
+}
+
+h2 {
+    animation-delay: 0.6s;
+}
+
+p {
+    animation-delay: 0.9s;
+}
+
+/* انیمیشن‌ها */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* دکمه‌های تعاملی */
+button {
+    background: linear-gradient(90deg, #3a6186, #89253e);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.4s ease-in-out;
+}
+
+button:hover {
+    background: linear-gradient(90deg, #3a6186, #89253e);
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* فهرست کشویی */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background: linear-gradient(90deg, #3a6186, #89253e);
+    min-width: 160px;
+    border-radius: 5px;
+    padding: 10px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* افکت‌های خاص */
+.shadow-box {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.shadow-box:hover {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+/* نوبار */
+nav {
+    background: linear-gradient(90deg, #3a6186, #89253e);
+    padding: 0.7rem 0;
+    text-align: center;
+}
+
+/* انیمیشن برای نمایش نوشته‌ها */
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 1.2rem;
+    font-weight: bold;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeInDown 1s ease-in-out forwards;
+    display: inline-block;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+nav a:nth-child(1) { animation-delay: 0.2s; }
+nav a:nth-child(2) { animation-delay: 0.4s; }
+nav a:nth-child(3) { animation-delay: 0.6s; }
+nav a:nth-child(4) { animation-delay: 0.8s; }
+
+/* افکت هاور */
+nav a:hover {
+    color: #ffcc00;
+    transform: scale(1.1) rotate(2deg);
+}
+
+/* انیمیشن محو شونده و حرکت */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* انیمیشن ورود تصاویر */
+img {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+    animation: fadeInUp 1s ease-in-out forwards;
+    transition: all 0.3s ease-in-out;
+    display: block;
+    margin: auto;
+    border-radius: 10px;
+}
+
+/* افکت برای چندین تصویر */
+img:nth-child(1) { animation-delay: 0.2s; }
+img:nth-child(2) { animation-delay: 0.4s; }
+img:nth-child(3) { animation-delay: 0.6s; }
+
+/* افکت هاور (بزرگ شدن و سایه) */
+img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* تعریف انیمیشن محو شدن و حرکت */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+/* تنظیمات عمومی دکمه‌ها */
+button {
+    opacity: 0;
+    transform: translateY(-50px);
+    animation: fadeInDown 1s ease-in-out forwards;
+    transition: all 0.3s ease-in-out;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    cursor: pointer;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #3a6186, #89253e);
+    color: white;
+    border: none;
+}
+
+/* افکت برای چندین دکمه */
+button:nth-child(1) { animation-delay: 0.2s; }
+button:nth-child(2) { animation-delay: 0.4s; }
+button:nth-child(3) { animation-delay: 0.6s; }
+
+/* افکت هاور (بزرگ‌تر شدن و روشن شدن) */
+button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(90deg, #3a6186, #89253e);
+}
+
+/* تعریف انیمیشن ورود از بالا */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* هدر */
@@ -13,13 +220,23 @@ header {
     background: linear-gradient(90deg, #3a6186, #89253e);
     color: #fff;
     text-align: center;
-    padding: 1.5rem 0;
+    padding: 2.5rem 0;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 header h1 {
     margin: 0;
     font-size: 2.5rem;
+}
+
+.sticky-header {
+    position: fixed;
+    top: 10;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* تنظیم سطح نمایش */
+    background-color: #ff0000; /* رنگ پس‌زمینه */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* ایجاد سایه برای ظاهر زیبا */
 }
 
 /* منو */
@@ -153,3 +370,78 @@ footer p {
 .dropdown-content a:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
+.dropdown-content {
+    display: none;
+    position: absolute;
+    box-shadow: none; /* حذف سایه */
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: rgb(255, 255, 255);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: transparent; /* حذف پس‌زمینه هنگام هاور کردن */
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+button {
+    background-color: transparent; /* حذف پس‌زمینه */
+    border: none; /* حذف حاشیه */
+    color: inherit; /* حفظ رنگ متن */
+    font: inherit; /* استفاده از فونت پیش‌فرض */
+    cursor: pointer; /* نمایش نشانگر مناسب */
+    padding: 0; /* حذف فضای داخلی */
+}
+
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.text-animation {
+    opacity: 0;
+    animation: fadeInUp 1s ease-in-out forwards;
+}
+
+.text-animation:nth-child(1) {
+    animation-delay: 0.3s;
+}
+
+.text-animation:nth-child(2) {
+    animation-delay: 0.6s;
+}
+
+.text-animation:nth-child(3) {
+    animation-delay: 0.9s;
+}
+
+
+  .dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+  }
+  .header.dark-mode, .footer.dark-mode, .navbar.dark-mode {
+    background-color: #1d1d1d;
+    color: #ffffff;
+  }
+  .product-card {
+    background-color: #1d1d1d;
+    border: 1px solid #ffffff;
+  }
+  .navbar a, .header a, .footer a {
+    color: #ffffff !important;
+  }

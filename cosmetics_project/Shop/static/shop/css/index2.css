@@ -1,0 +1,84 @@
+/* استایل کلی فرم */
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+/* تنظیمات فرم */
+.form {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(90deg, #3a6186, #89253e);
+    padding: 10px;
+    border-radius: 50px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+/* افکت هاور فرم */
+.form:hover {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+/* تنظیمات فیلد جستجو */
+.form-input {
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-size: 1em;
+    flex-grow: 1;
+    border-radius: 50px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* افکت ورودی هنگام فوکوس */
+.form-input:focus {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    transform: scale(1.05);
+}
+
+/* تنظیمات دکمه جستجو */
+.btn-primary {
+    background: white;
+    color: #007BFF;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* افکت هاور دکمه جستجو */
+.btn-primary:hover {
+    background: #007BFF;
+    color: white;
+    transform: scale(1.1);
+}
+
+/* تنظیمات آیکون */
+.left-pan {
+    color: white;
+    margin-left: 10px;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+/* افکت محو شونده برای فرم */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form {
+    opacity: 0;
+    animation: fadeInUp 1s ease-in-out forwards;
+}

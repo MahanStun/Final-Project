@@ -1,126 +1,75 @@
-/* تنظیمات کلی صفحه */
-/* اضافه کردن فونت فارسی */
-@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
-
 body {
-    font-family: 'Vazirmatn', sans-serif; /* فونت جدید */
-    background: #ffffff; /* زمینه مشکی */
-    direction: rtl;
-    text-align: right;
-    color: #fff;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.form-control {
-    font-size: 16px;
-    font-family: 'Vazirmatn', sans-serif;
-    color: #ffffff !important; /* رنگ متن */
-}
-
-.btn-primary {
-    font-size: 18px;
-    font-weight: bold;
-    font-family: 'Vazirmatn', sans-serif;
-}
-
-body {
-    font-family: 'Tahoma', sans-serif;
-    background: lightblue url("https://wallpapers.com/images/featured/nature-2ygv7ssy2k0lxlzu.jpg") no-repeat fixed center;
-    direction: rtl;
-    text-align: right;
-    color: #fff;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* تنظیمات فرم ورود */
-.container {
-    width: 450px;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 25px;
-    border-radius: 10px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.2);
-    display: flex;
-    flex-direction: column; /* نمایش فیلدها به‌صورت ستونی */
-    align-items: center;
-}
-
-
-/* استایل فیلدهای ورودی */
-.form-group label {
-    font-weight: bold;
-    color: #fff;
-    margin-bottom: 8px;
-}
-
-.input-group {
-    display: flex;
-    align-items: center;
-    border: 1px solid #888;
-    border-radius: 6px;
-    overflow: hidden;
-}
-
-.input-group input {
-    flex: 1;
-    border: none;
-    padding: 12px;
-    font-size: 16px;
-    background: transparent;
-    color: #fff;
-    border-bottom: 2px solid #fff;
-}
-
-.input-group button {
-    background: none;
-    border: none;
-    padding: 12px;
-    cursor: pointer;
-}
-
-.input-group button:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-/* دکمه ورود */
-.btn-primary {
-    background: linear-gradient(90deg, #007bff, #6610f2);
-    border: none;
-    width: 100%;
-    padding: 12px;
-    font-size: 18px;
-    border-radius: 6px;
-    transition: all 0.3s ease;
-    color: #fff;
-}
-
-.btn-primary:hover {
-    background: linear-gradient(90deg, #6610f2, #007bff);
-    box-shadow: 0px 4px 12px rgba(255, 255, 255, 0.3);
-}
-
-/* پیام‌های خطا */
-.alert-danger {
-    font-size: 14px;
-    padding: 12px;
-    border-radius: 6px;
-    color: #fff;
-    background: #dc3545;
+    font-family: 'Arial', sans-serif;
+    background-image: url("https://drive.google.com/file/d/1kOlSJ3jEF1TE4S2pS4TJFNImWTjzmrvb/view?usp=sharing") !important;
+    background-size: cover;
+    background-position: center;
     text-align: center;
-    display: none;
-}
-#togglePassword i {
-    color: #ffffff; /* تغییر رنگ چشم به سفید */
-    font-size: 20px;
-    transition: color 0.3s ease;
+    padding: 20px;
 }
 
-#togglePassword:hover i {
-    color: #ffcc00; /* تغییر رنگ هنگام هاور روی چشم */
+
+h2, button, input {
+    animation: bounceTwice 1s ease-in-out 2; /* انیمیشن دو بار اجرا می‌شود */
 }
+
+
+
+h2 {
+    color: #333;
+    font-size: 2em;
+    animation: fadeInText 2s ease-in-out infinite; /* انیمیشن محو شدن متن */
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    animation: bounce 1.5s infinite; /* انیمیشن پرش */
+}
+
+input {
+    font-size: 1em;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    position: relative;
+    animation: moveAround 5s infinite; /* انیمیشن حرکت */
+}
+
+@keyframes moveAround {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(50px); }
+    50% { transform: translateY(30px); }
+    75% { transform: translateX(-50px); }
+    100% { transform: translateY(-30px); }
+}
+
+
+@keyframes fadeBackground {
+    0% { background-color: #f0f8ff; }
+    50% { background-color: #e6e6fa; }
+    100% { background-color: #f0f8ff; }
+}
+
+@keyframes fadeInText {
+    0% { opacity: 0; transform: translateY(-20px); }
+    50% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-20px); }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-30px);
+    }
+    60% {
+        transform: translateY(-15px);
+    }
+}
+

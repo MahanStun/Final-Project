@@ -14,10 +14,9 @@
     </a>
     <button id="darkModeToggle" class="link-style">تغییر رنگ پس زمینه</button>
     <div class="dropdown">
-        <button onclick="toggleDropdown()">منوی کشویی</button>
+        <button onclick="toggleDropdown()">محصولات برند های مختلف</button>
         <div class="dropdown-content" id="dropdownMenu">
             <li><a class="dropdown-item" href="{% url "index_shop" %}">همه محصولات</a></li>
-            <li><hr class="dropdown-divider" /></li>
             <li><a class="dropdown-item" href="{% url "category_url" "My" %}">My</a></li>
             <li><a class="dropdown-item" href="{% url "category_url" "Alpin" %}">Alpin</a></li>
             <li><a class="dropdown-item" href="{% url "category_url" "CALISTA" %}">CALISTA</a></li>
@@ -33,6 +32,24 @@
 </nav>
 {% endif %}
 <script>
+  style.innerHTML = `
+  .dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+  }
+  .header.dark-mode, .footer.dark-mode, .navbar.dark-mode {
+    background-color: #1d1d1d;
+    color: #ffffff;
+  }
+  .product-card {
+    background-color: #1d1d1d;
+    border: 1px solid #ffffff;
+  }
+  .navbar a, .header a, .footer a {
+    color: #ffffff !important;
+  }
+`;
+
     // JavaScript for toggling dark mode
     const toggleButton = document.getElementById('darkModeToggle');
     toggleButton.addEventListener('click', () => {
@@ -41,7 +58,8 @@
         element.classList.toggle('dark-mode');
       });
     });
-  
+    
+    
     // CSS for dark mode
     const style = document.createElement('style');
     style.innerHTML = `

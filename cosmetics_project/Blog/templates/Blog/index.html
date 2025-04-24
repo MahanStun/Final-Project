@@ -15,10 +15,11 @@
     <!-- Navigation-->
     <!-- Header-->
     {% include "blog/includes/header.html" %}
-    {% include "blog/includes/navbar.html" %}
-{% endblock header_section_shop %}
 
+{% endblock header_section_shop %}
+    {% include "blog/includes/navbar.html" %}
 {% block content_section_shop %}
+{% if user.is_authenticated %}
 <!DOCTYPE html>
 <html lang="fa">
     {% for item in My_Blogs %}
@@ -27,12 +28,18 @@
     <div class="container">
         <h2>{{item.name}}</h2>
         <p>{{item.description}}</p>
+        <img src="{{item.image.url}}" alt="Product Image" width="500" height="200">
         <p>{{item.created_at}}</p>
     </div>
     {% endfor %}
 </body>
 </html>
+{% else %}
+<div class="container">
+    <h2>"لطفاً اول ورود یا ثبت نام کنید"</h2>
 
+</div>
+{% endif %}
 {% endblock content_section_shop %}
 
 

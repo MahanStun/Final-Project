@@ -1,6 +1,6 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
+    background: #ff0000;
     text-align: center;
     padding: 20px;
 }
@@ -53,7 +53,7 @@ button:hover {
     font-weight: bold;
 }
 footer {
-    background: linear-gradient(90deg, #3a6186, #89253e);    color: white;
+    background: linear-gradient(90deg, #3a6186, #89253e);   color: white;
     padding: 15px;
     text-align: center;
     font-size: 0.9rem;
@@ -70,4 +70,13 @@ footer {
 
 #togglePassword:hover i {
     color: #ffcc00; /* تغییر رنگ هنگام هاور روی چشم */
+}
+.sticky-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* تنظیم سطح نمایش */
+    background-color: #ffffff; /* رنگ پس‌زمینه */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* ایجاد سایه برای ظاهر زیبا */
 }

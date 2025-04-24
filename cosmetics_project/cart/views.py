@@ -51,6 +51,8 @@ def payment_zarinpal(request):
         return HttpResponse("error from Zarinpal Website")
     
 def verify_payment(request):
+    cart = Cart(request)
+    amount =  cart.total_price()
     authority = request.GET.get("Authority")
     status = request.GET.get("Status")
     data = {
