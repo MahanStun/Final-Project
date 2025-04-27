@@ -35,3 +35,15 @@ class Product(models.Model):
 
     def __str__(self):
         return self.Product_name
+from django.db import models
+from django.contrib.auth.models import User
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=False)  # مقدار NULL مجاز نیست
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self):
+        return f"{self.user.username}: {self.content[:30]}"

@@ -1,4 +1,3 @@
-{% extends "base_shop.html" %}
 {% load static %}
 
 {% block title %}
@@ -15,23 +14,22 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{% static "shop/css/bootstrap.min.css" %}" rel="stylesheet" />
     <link rel="stylesheet" href="{% static "shop/css/templatemo-style.css" %}">
-    <link href="{% static "shop/css/style.css" %}" rel="stylesheet" />
-    <link rel="stylesheet" href="{% static "shop/css/styles.css" %}">
+    <link href="{% static "shop/css/index_style.css" %}" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static "shop/css/setting.css" %}">
 {% endblock header_refrences %}
 
 {% block content_section_shop %}
-<h1>Edit Profile...</h1>
-<br/><br/>
-
 <div class="form-group">
+    <h1>Edit Profile</h1>
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <button id="Change" class="btn btn-secondary" >Update Profile
+        <button class="btn-modern" type="submit">Update Profile</button>
+        <button class="btn-modern">
+            <a href="{% url "password" %}">Update Password</a>
         </button>
-        <button id="Change" >
-            <a class="btn btn-secondary" href="{% url "password" %}">Update Password</a>
-        </button>
+    </form>
 </div>
+
 
 {% endblock content_section_shop %}

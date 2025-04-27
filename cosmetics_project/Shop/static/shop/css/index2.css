@@ -82,3 +82,9 @@
     opacity: 0;
     animation: fadeInUp 1s ease-in-out forwards;
 }
+a {
+    color: #ffffff; /* رنگ جذاب (نارنجی روشن) */
+    text-decoration: none; /* حذف خط زیر لینک‌ها */
+    font-weight: bold; /* متن لینک کمی برجسته‌تر شود */
+    transition: color 0.3s ease, transform 0.2s ease;
+  }

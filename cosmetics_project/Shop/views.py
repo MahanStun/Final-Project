@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse , HttpResponseBadRequest
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.contrib.auth.views import PasswordChangeView
@@ -14,11 +14,19 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from .forms import SignUpForm
 from django.core.paginator import Paginator
-
+from django.shortcuts import render
+from django.http import JsonResponse
+from .models import Comment, Product
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
-
+class UserEditView(generic.UpdateView):
+    form_class = UserChangeForm
+    template_name = "shop/setting.html"
+    success_url = reverse_lazy("index_blog")
+    def get_object(self):
+        return self.request.user
 def index_shop(request):
     Products = Product.objects.all()
     if request.method == "POST":
@@ -194,3 +202,109 @@ def category(request, cat=None):
         category = Category.objects.get(slug=cat)  # programing
         Products = Product.objects.filter(category=category)
         return render(request, "shop/category.html", {"Products": Products})
+    
+
+
+
+@login_required
+def add_comment(request):
+    if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return JsonResponse({"error": "User not authenticated"}, status=401)
+
+        content = request.POST.get('content')
+        product_id = request.POST.get('product_id')
+        if not product_id or not product_id.isdigit():
+            return JsonResponse({"error": "Invalid product ID"}, status=400)
+
+        try:
+            product = Product.objects.get(id=product_id)
+            new_comment = Comment.objects.create(
+                content=content,
+                product=product,
+                user=request.user
+            )
+            return JsonResponse({'content': new_comment.content, 'user': request.user.username})
+        except Product.DoesNotExist:
+            return JsonResponse({"error": "Product not found"}, status=404)
+    else:
+        return JsonResponse({"error": "Invalid request method"}, status=405)
+
+
+def get_comments(request):
+    product_id = request.GET.get('product_id')
+    if not product_id or not product_id.isdigit():
+        return JsonResponse({"error": "Invalid product ID"}, status=400)
+    
+    try:
+        product = Product.objects.get(id=product_id)
+        comments = Comment.objects.filter(product=product).values('content', 'created_at', 'user__username', 'user_id')
+        user_id = request.user.id  # شناسه کاربر فعلی
+        comments_list = []
+
+        for comment in comments:
+            comments_list.append({
+                "content": comment["content"],
+                "created_at": comment["created_at"],
+                "user": "خودم" if user_id == comment["user_id"] else comment["user__username"],
+                "is_owner": user_id == comment["user_id"],  # اضافه کردن فیلد مالکیت
+            })
+
+        return JsonResponse(comments_list, safe=False)
+    except Product.DoesNotExist:
+        return JsonResponse({"error": "Product not found"}, status=404)
+
+  
+
+@login_required
+def delete_comment(request):
+    if request.method == 'POST':
+        comment_id = request.POST.get('comment_id')
+        print(f"Received comment_id: {comment_id}")  # اشکال‌زدایی
+        if not comment_id or not comment_id.isdigit():
+            return JsonResponse({"error": "Invalid comment ID"}, status=400)
+
+
+ # دریافت شناسه کامنت
+        try:
+            comment = Comment.objects.get(id=comment_id)
+            if comment.user == request.user:
+                comment.delete()
+                return JsonResponse({"success": "Comment deleted successfully"})
+            else:
+                return JsonResponse({"error": "Permission denied"}, status=403)
+        except Comment.DoesNotExist:
+            return JsonResponse({"error": "Comment not found"}, status=404)
+    else:
+        return JsonResponse({"error": "Invalid request method"}, status=405)
+
+
+from django.views.generic.edit import FormView
+from .forms import PasswordChangingForm
+from django.urls import reverse_lazy
+
+from django.views.generic.edit import FormView
+from django.urls import reverse_lazy
+from .forms import PasswordChangingForm
+
+class PasswordssChangeView(FormView):
+    form_class = PasswordChangingForm
+    template_name = "shop/change_password.html"
+    success_url = reverse_lazy('password_success')
+
+    def get_form_kwargs(self):
+        # دریافت مقادیر پیش‌فرض فرم
+        kwargs = super().get_form_kwargs()
+        # ارسال کاربر به فرم برای پردازش
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        # اعمال تغییر رمز عبور
+        user = self.request.user
+        user.set_password(form.cleaned_data.get('new_password'))
+        user.save()
+        return super().form_valid(form)
+
+def password_success(request):
+    return render(request, "shop/password_success.html", {})

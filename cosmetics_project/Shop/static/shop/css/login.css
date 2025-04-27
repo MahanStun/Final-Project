@@ -1,75 +1,76 @@
+/* تنظیم پس‌زمینه با تصویر مرتبط با لوازم آرایشی و مرکز کردن محتوا */
 body {
-    font-family: 'Arial', sans-serif;
-    background-image: url("https://drive.google.com/file/d/1kOlSJ3jEF1TE4S2pS4TJFNImWTjzmrvb/view?usp=sharing") !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url("https://wallpapers.com/images/hd/cosmetics-background-6lyz0iv5s1c7bn6l.jpg") no-repeat center center fixed;
     background-size: cover;
-    background-position: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/* استایل مدرن فرم ورود */
+.container {
+    max-width: 400px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(8px);
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* عنوان فرم */
+.login-title {
     text-align: center;
-    padding: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #d63384;
 }
 
-
-h2, button, input {
-    animation: bounceTwice 1s ease-in-out 2; /* انیمیشن دو بار اجرا می‌شود */
+/* تنظیمات فیلدهای ورودی */
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid #d63384;
+    outline: none;
+    transition: 0.3s;
 }
 
-
-
-h2 {
-    color: #333;
-    font-size: 2em;
-    animation: fadeInText 2s ease-in-out infinite; /* انیمیشن محو شدن متن */
+.form-group input:focus {
+    border-color: #ff80a1;
+    box-shadow: 0px 0px 10px rgba(214, 51, 132, 0.5);
 }
 
-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 15px 20px;
+/* دکمه ورود */
+.form-btn button {
+    width: 100%;
+    padding: 12px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
+    background: #d63384;
+    color: white;
+    font-size: 18px;
     cursor: pointer;
-    font-size: 1em;
-    animation: bounce 1.5s infinite; /* انیمیشن پرش */
+    transition: 0.3s;
 }
 
-input {
-    font-size: 1em;
-    padding: 10px;
-    border: 2px solid #ddd;
-    border-radius: 5px;
-    position: relative;
-    animation: moveAround 5s infinite; /* انیمیشن حرکت */
+.form-btn button:hover {
+    background: #ff80a1;
+    box-shadow: 0px 0px 15px rgba(255, 128, 161, 0.6);
 }
 
-@keyframes moveAround {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(50px); }
-    50% { transform: translateY(30px); }
-    75% { transform: translateX(-50px); }
-    100% { transform: translateY(-30px); }
-}
-
-
-@keyframes fadeBackground {
-    0% { background-color: #f0f8ff; }
-    50% { background-color: #e6e6fa; }
-    100% { background-color: #f0f8ff; }
-}
-
-@keyframes fadeInText {
-    0% { opacity: 0; transform: translateY(-20px); }
-    50% { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(-20px); }
-}
-
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
+/* افکت انیمیشنی هنگام نمایش فرم */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
         transform: translateY(0);
     }
-    40% {
-        transform: translateY(-30px);
-    }
-    60% {
-        transform: translateY(-15px);
-    }
 }
-

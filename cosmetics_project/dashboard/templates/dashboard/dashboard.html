@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    {% load static %}
+    <link href="{% static "dashboard/css/style.css" %}" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container-body">
+    <div class="asidebar">
+        <button class="menu-btn active-session" onclick="showPanel('user-information')">User Information</button>
+        <button class="menu-btn" onclick="showPanel('settings')">Setting</button>
+        <button class="menu-btn" onclick="showPanel('add_blog')">Add Blog</button>
+        <button class="menu-btn" onclick="showPanel('Seeing_Blogs')">Seeing Blogs</button>
+        <button id="myButton" onclick="toggleTheme()" class="menu-btn">خاموش</button>
+    </div>
+    
+    <div class="content">
+        {% if user.is_authenticated %}
+        
+        <div id="user-information" class="panel active-session">
+            <h1>User Profile</h1>
+            <form action="{% url "dashboard" %}" method="post" enctype="multipart/form-data">
+                <img src="{{profile.profile_image.url}}" alt="profile-image" width="200" height="200">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <label>Username</label>
+                <input type="text" name="username" value="{{ request.user.username }}">
+                <label>Email</label>
+                <input type="email" name="email" value="{{ request.user.email }}">
+                <label>First Name</label>
+                <input type="first_name" name="first_name" value="{{ request.user.first_name }}">
+                <label>Last Name</label>
+                <input type="last_name" name="last_name" value="{{ request.user.last_name }}">
+                <button type="submit" class="save-data">Save Changes</button>
+                <button type="submit" class="save-data">
+                    <a href="{% url "password" %}">Updating Password</a>
+                </button>
+            </form>
+        </div>
+
+        <div id="settings" class="panel">
+            <h1>Setting</h1>
+            <p>تنظیمات کاربری</p>
+        </div>
+
+        <div id="add_blog" class="panel">
+          <h1>Blog</h1>
+          <p>Adding blog</p>
+      
+          <form action="{% url 'add_blog' %}" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{ form_blog.as_p }}
+              <button type="submit" class="btn btn-primary">ارسال بلاگ</button>
+          </form>
+      
+
+      
+
+      </div>
+      <div id="Seeing_Blogs" class="panel2">
+        <h1>Seeing Blogs</h1>
+        {% for blog in blogs %}
+        <div class="blog-post">
+            <h3>{{ blog.title }}</h3>
+            <p>{{ blog.content }}</p>
+            <p><small>تاریخ انتشار: {{ blog.created_at }}</small></p>
+            {% if blog.image %}
+                <img src="{{ blog.image.url }}" alt="Blog Image" width="300">
+            {% endif %}
+    
+            {% if blog.author == request.user %}
+            <form action="{% url 'delete_blog' blog.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">حذف</button>
+            </form>
+            {% endif %}
+        </div>
+        <hr>
+    {% endfor %}
+    
+
+
+        {% else %}
+        <div class="d-flex align-items-center justify-content-center vh-100">
+            <div class="text-center row">
+                <div class="col-md-6">
+                    <img src="https://cdn.pixabay.com/photo/2017/03/09/12/31/error-2129569__340.jpg" alt="Error Image" class="img-fluid">
+                </div>
+                <div class="col-md-6 mt-5">
+                    <p class="fs-3"><span class="text-danger">Opps!</span> لطفا وارد شوید!</p>
+                    <p class="lead">Dashboard قابل دسترسی نیست.</p>
+                    <a href="{% url "index_shop" %}" class="btn btn-primary">Go Home</a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+  function showPanel(panelId) {
+    let panels = document.querySelectorAll(".panel");
+    panels.forEach(panel => panel.style.display = "none"); // مخفی کردن تمامی پنل‌ها
+
+    let activePanel = document.getElementById(panelId);
+    if (activePanel) {
+        activePanel.style.display = "block"; // نمایش پنل مورد نظر
+    }
+}
+
+  function toggleTheme() {
+      let button = document.getElementById("myButton");
+      let body = document.body;
+      let elements = document.querySelectorAll(".container-body, .menu-btn, .panel, .panel2 , input, textarea");
+
+      if (button.innerText === "خاموش") {
+          button.innerText = "روشن";
+          body.style.backgroundColor = "black";
+          body.style.color = "white";
+
+          elements.forEach(element => {
+              element.style.color = "white";
+              element.style.backgroundColor = "#222"; 
+              element.style.borderColor = "#555"; 
+          });
+
+      } else {
+          button.innerText = "خاموش";
+          body.style.backgroundColor = "white";
+          body.style.color = "black";
+
+          elements.forEach(element => {
+              element.style.color = "black";
+              element.style.backgroundColor = "white";
+              element.style.borderColor = "#ccc"; 
+          });
+      }
+  }
+</script>
+
+</body>
+</html>

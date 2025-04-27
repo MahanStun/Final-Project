@@ -107,4 +107,134 @@ body {
   .btn-dark i {
     margin-left: 5px;
   }
-  
+  #comments-section {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+#comment-input {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+    font-size: 16px;
+}
+
+button {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#comment-form {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+#comment-input {
+  width: 100%;
+  height: 80px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+  font-size: 16px;
+}
+
+button[type="submit"] {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+#comments-list {
+  display: flex; /* فعال کردن Flexbox */
+  flex-wrap: wrap; /* نمایش در چند خط در صورت پر شدن عرض */
+  gap: 15px; /* فاصله بین مستطیل‌ها */
+  justify-content: space-around; /* توزیع مساوی در عرض */
+  margin-top: 20px;
+}
+
+.comment-box {
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  width: 200px; /* تعیین عرض ثابت */
+  background-color: #f9f9f9;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* مرکز چین شدن متن در داخل مستطیل */
+}
+
+.comment-user {
+  font-size: 1em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.comment-date {
+  font-size: 0.8em;
+  color: #666;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.comment-content {
+  font-size: 0.9em;
+  color: #555;
+  text-align: center;
+}
+
+
+.delete-comment {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 0.9em;
+  margin-top: 10px;
+}
+
+.delete-comment:hover {
+  background-color: #ff3333;
+}
+

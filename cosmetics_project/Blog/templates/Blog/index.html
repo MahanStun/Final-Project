@@ -22,23 +22,22 @@
 {% if user.is_authenticated %}
 <!DOCTYPE html>
 <html lang="fa">
-    {% for item in My_Blogs %}
 <body>
-
     <div class="container">
-        <h2>{{item.name}}</h2>
-        <p>{{item.description}}</p>
-        <img src="{{item.image.url}}" alt="Product Image" width="500" height="200">
-        <p>{{item.created_at}}</p>
+            {% for item in blogs %}
+            <h2>{{ item.author }}</h2>
+                <h2>{{ item.title }}</h2>
+                <p>{{ item.content }}</p>
+                <img src="{{ item.image.url }}" alt="Blog Image" width="500" height="200">
+                <p>{{ item.created_at }}</p>
+            {% endfor %}
+        {% else %}
+            <h2>"لطفاً اول ورود یا ثبت نام کنید"</h2>
     </div>
-    {% endfor %}
 </body>
 </html>
-{% else %}
-<div class="container">
-    <h2>"لطفاً اول ورود یا ثبت نام کنید"</h2>
 
-</div>
+
 {% endif %}
 {% endblock content_section_shop %}
 

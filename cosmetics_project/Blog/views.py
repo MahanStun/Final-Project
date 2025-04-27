@@ -14,6 +14,8 @@ from rest_framework.views import APIView
 from .serializers import MyBlogSerializers
 from rest_framework.response import Response
 from rest_framework import status
+from django.shortcuts import render
+from dashboard.models import Blog
 
 
 
@@ -50,7 +52,6 @@ class PostData(APIView):
         book.description = description
         book.image = image
         book.save()
-def index_Blog(request):
-    My_Blogs = My_Blog.objects.all()
-    return render(request, "Blog/index.html", {"My_Blogs": My_Blogs})
-    #return HttpResponse("welcome")
+def blog_list(request):
+    blogs = Blog.objects.all()
+    return render(request, "Blog/index.html", {"blogs": blogs})
