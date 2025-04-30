@@ -190,6 +190,7 @@
                 </div>`
             );
             $("#comment-input").val(""); // پاک کردن فیلد ورودی کامنت پس از ارسال
+            location.reload();
         },
         error: function(xhr, errormsg, error) {
             console.error("Error in adding comment:", errormsg);

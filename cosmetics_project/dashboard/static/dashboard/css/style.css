@@ -249,10 +249,22 @@ canvas {
   max-height: 300px;
 }
 
-a {
+.save-data {
+  background-color: #007bff; /* رنگ پس‌زمینه */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
   text-decoration: none;
-  color: #ffffff;
+  display: inline-block;
 }
+
+
+.save-data a {
+  color: white; /* تغییر رنگ متن به سفید */
+  text-decoration: none !important; /* حذف خط زیر متن با اولویت بالا */
+  display: inline-block; /* اطمینان از نمایش مناسب لینک */
+}
+
 
 
 /* استایل کلی فرم */

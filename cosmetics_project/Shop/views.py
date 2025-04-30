@@ -284,9 +284,12 @@ def check_comments(request):
 
 
 class PasswordssChangeView(FormView):
+    template_name = "shop/Password_email_change.html"
     form_class = PasswordChangingForm
-    template_name = "shop/change_password.html"
     success_url = reverse_lazy('password_success')
+
+
+
 
     def get_form_kwargs(self):
         # دریافت مقادیر پیش‌فرض فرم
@@ -295,12 +298,15 @@ class PasswordssChangeView(FormView):
         kwargs['user'] = self.request.user
         return kwargs
 
+
     def form_valid(self, form):
-        # اعمال تغییر رمز عبور
+        print("Form submitted successfully!")  # نمایش پیام در کنسول
         user = self.request.user
         user.set_password(form.cleaned_data.get('new_password'))
         user.save()
         return super().form_valid(form)
 
+
+
 def password_success(request):
-    return render(request, "shop/password_success.html", {})
+        return render(request, "shop/password_success.html", {})

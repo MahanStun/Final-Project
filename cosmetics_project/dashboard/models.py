@@ -24,7 +24,8 @@ class UserProfile_Default(models.Model):
     
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_image = models.ImageField(upload_to='profile_images/', blank=True)
+    profile_image = models.ImageField(upload_to='uploads/user', default='uploads/user/default_profile.png', blank=True)
+
     biography_text = models.TextField(blank=True)
     username = models.CharField(max_length=150, blank=True)
     email = models.EmailField(blank=True)

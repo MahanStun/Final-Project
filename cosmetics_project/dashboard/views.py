@@ -113,6 +113,34 @@ def delete_blog(request, blog_id):
 
     return redirect("dashboard")
 
+def edit_blog(request, blog_id):
+    if not request.user.is_authenticated:
+        messages.error(request, "لطفا اول وارد اکانت شوید")
+        return redirect("login_url")
+
+    blog = get_object_or_404(Blog, id=blog_id)
+
+    # فقط نویسنده بلاگ می‌تواند آن را ویرایش کند
+    if blog.author != request.user:
+        messages.error(request, "شما اجازه ویرایش این بلاگ را ندارید")
+        return redirect("dashboard")
+
+    form_blog = BlogForm(request.POST or None, request.FILES or None, instance=blog)
+
+    if request.method == 'POST':
+        if form_blog.is_valid():
+            try:
+                blog = form_blog.save(commit=False)
+                blog.author = request.user
+                blog.save()
+                messages.success(request, "بلاگ با موفقیت ویرایش شد")
+                return redirect("dashboard")
+            except Exception as e:
+                messages.error(request, f"خطا در ذخیره تغییرات بلاگ: {e}")
+        else:
+            messages.error(request, "فرم معتبر نیست. لطفاً اطلاعات را بررسی کنید.")
+
+    return render(request, "dashboard/edit_blog.html", {"form_blog": form_blog, "blog": blog})
 
 
 

@@ -1,0 +1,42 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: url("https://wallpapers.com/images/hd/cosmetics-background-6lyz0iv5s1c7bn6l.jpg") no-repeat center center fixed;
+    color: #fff;
+    overflow: hidden;
+}
+
+.animated-container {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.animated-title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    animation: moveUp 2s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes moveUp {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form {
+    margin-top: 20px;
+}

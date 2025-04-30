@@ -9,7 +9,7 @@ urlpatterns = [
     path("signup/", views.signup_user, name="signup_url"),
     path("logout/", views.logout_user, name="logout_url"),
     path("password/", views.PasswordssChangeView.as_view(template_name='shop/change_password.html'), name="password"),
-    path('Password_change/', views.PasswordssChangeView.as_view(), name='password_change'),
+    path('Password_email_change/', views.PasswordChangeView.as_view(), name='password_change'),
     path("password_success", views.password_success, name="password_success"),
     path("verifycation_code/", views.verifycation_code ,name="verifycation_code"),
     path("verify_code/", views.verify_code ,name="verify_code"),

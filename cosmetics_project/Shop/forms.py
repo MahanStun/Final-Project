@@ -79,45 +79,31 @@ class SignUpForm(UserCreationForm):
             "password2",
         ]
 
+
+
 class PasswordChangingForm(PasswordChangeForm):
     old_password = forms.CharField(
         label="",
         max_length=50,
-        widget=forms.TextInput(
-            attrs={"class": "form-control",
-                    "placeholder": "Old Password",
-
-                    }
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control", "placeholder": "Old Password"}
         ),
     )
     new_password1 = forms.CharField(
         label="",
         max_length=50,
-        widget=forms.TextInput(
-            attrs={
-                "class": "form-control",
-                "placeholder": "New password",
-
-            }
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control", "placeholder": "New Password"}
         ),
     )
     new_password2 = forms.CharField(
         label="",
         max_length=100,
-        widget=forms.TextInput(
-            attrs={
-                "class": "form-control",
-                "placeholder": "New password confirmation",
-
-            }
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control", "placeholder": "Confirm New Password"}
         ),
     )
- 
 
     class Meta:
         model = User
-        fields = [
-            "old_password",
-            "new_password1",
-            "new_password2",
-        ]
+        fields = ["old_password", "new_password1", "new_password2"]

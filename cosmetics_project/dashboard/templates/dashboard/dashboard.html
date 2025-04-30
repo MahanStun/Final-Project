@@ -26,7 +26,7 @@
     <div class="content">
         {% if user.is_authenticated %}
         
-        <div id="user-information" class="panel active-session">
+            <div id="user-information" class="panel active-session">
 
 
 
@@ -35,6 +35,7 @@
             <form action="{% url 'dashboard' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.as_p }}
+
                 <label>Username</label>
                 <input type="text" name="username" value="{{ request.user.username }}">
                 <label>Email</label>
@@ -43,7 +44,10 @@
                 <input type="text" name="first_name" value="{{ request.user.first_name }}">
                 <label>Last Name</label>
                 <input type="text" name="last_name" value="{{ request.user.last_name }}">
+                <br><br>
                 <button type="submit" class="save-data">Save Changes</button>
+                <a href="{% url 'password' %}" class="save-data">Update Password</a>
+                
             </form>
             
             
@@ -282,9 +286,15 @@
             {% if blog.author == request.user %}
             <form action="{% url 'delete_blog' blog.id %}" method="post">
                 {% csrf_token %}
+                <br><br>
                 <button type="submit" class="btn btn-danger">حذف</button>
             </form>
-            {% endif %}
+        
+            <!-- دکمه ویرایش -->
+             <br>
+            <a href="{% url 'edit_blog' blog.id %}" class="btn btn-warning">ویرایش</a>
+        {% endif %}
+        
         </div>
         <hr>
     {% endfor %}
@@ -352,12 +362,15 @@
 
 <script>
     document.querySelector("form").addEventListener("submit", function(event) {
-        const picture = document.querySelector("input[name='picture']").files[0];
-        if (!picture) {
+        const profileImageInput = document.querySelector("input[name='profile_image']");
+        const existingImage = "{{ profile.profile_image.url }}";  // مقدار فعلی تصویر پروفایل
+
+        if (!profileImageInput.files.length && !existingImage) {
             alert("لطفاً حداقل یک تصویر انتخاب کنید!");
             event.preventDefault();  // متوقف کردن ارسال فرم
         }
     });
+
 </script>
 
 
