@@ -21,7 +21,7 @@ from dashboard.models import Blog
 
 class GetAllData(APIView):
     def get(self, request):
-        query = My_Blog.objects.all()
+        query = Blog.objects.all()
         serializers = MyBlogSerializers(query, many=True)
         return Response(serializers.data,status=status.HTTP_200_OK)
 
@@ -47,7 +47,7 @@ class PostData(APIView):
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def add_data_to_db(self, name, description, image, fav):
-        book = My_Blog()
+        book = Blog()
         book.name = name
         book.description = description
         book.image = image

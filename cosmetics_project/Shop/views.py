@@ -106,7 +106,7 @@ def verify_reset_code(request):
                 del request.session['reset_code']
                 del request.session['user_email']
 
-                return redirect("index_shop")  # انتقال به صفحه اصلی
+                return redirect("index_blog")  # انتقال به صفحه اصلی
             except User.DoesNotExist:
                 messages.error(request, "مشکلی در ورود به حساب وجود دارد.")
                 return redirect("forgot_password")
