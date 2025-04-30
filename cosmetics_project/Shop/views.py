@@ -18,6 +18,9 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from .models import Comment, Product
 from django.contrib.auth.decorators import login_required
+from django.views.generic.edit import FormView
+from dashboard.models import Product_dashboard , Category_dashboard ,Comment_dashboard
+
 # Create your views here.
 
 
@@ -28,11 +31,11 @@ class UserEditView(generic.UpdateView):
     def get_object(self):
         return self.request.user
 def index_shop(request):
-    Products = Product.objects.all()
+    Products = Product_dashboard.objects.all()
     if request.method == "POST":
         query = request.POST.get("search-course")
         if query:
-            Products = Product.objects.filter(Product_name__icontains=query)
+            Products = Product_dashboard.objects.filter(Product_name__icontains=query)
     paginator = Paginator(Products,3)
     page_number = request.GET.get("page",1)
     page_obj = paginator.get_page(page_number)
@@ -40,7 +43,7 @@ def index_shop(request):
 
     #return HttpResponse("welcome")
 def Products_Cosmetics(request, pk):
-    Productss = Product.objects.get(id=pk)
+    Productss = Product_dashboard.objects.get(id=pk)
     return render(request, "shop/Products_Cosmetics.html", {"Productss": Productss})
 
 
@@ -199,10 +202,12 @@ def category(request, cat=None):
         # cat = cat.replace("-", " ")
   
 
-        category = Category.objects.get(slug=cat)  # programing
-        Products = Product.objects.filter(category=category)
+        category = Category_dashboard.objects.get(slug=cat)  # programing
+        Products = Product_dashboard.objects.filter(category=category)
         return render(request, "shop/category.html", {"Products": Products})
     
+
+
 
 
 
@@ -218,18 +223,17 @@ def add_comment(request):
             return JsonResponse({"error": "Invalid product ID"}, status=400)
 
         try:
-            product = Product.objects.get(id=product_id)
-            new_comment = Comment.objects.create(
+            product = Product_dashboard.objects.get(id=product_id)
+            new_comment = Comment_dashboard.objects.create(
                 content=content,
                 product=product,
                 user=request.user
             )
             return JsonResponse({'content': new_comment.content, 'user': request.user.username})
-        except Product.DoesNotExist:
+        except Product_dashboard.DoesNotExist:
             return JsonResponse({"error": "Product not found"}, status=404)
     else:
         return JsonResponse({"error": "Invalid request method"}, status=405)
-
 
 def get_comments(request):
     product_id = request.GET.get('product_id')
@@ -237,55 +241,47 @@ def get_comments(request):
         return JsonResponse({"error": "Invalid product ID"}, status=400)
     
     try:
-        product = Product.objects.get(id=product_id)
-        comments = Comment.objects.filter(product=product).values('content', 'created_at', 'user__username', 'user_id')
-        user_id = request.user.id  # شناسه کاربر فعلی
+        product = Product_dashboard.objects.get(id=product_id)
+        comments = Comment_dashboard.objects.filter(product=product).values('id', 'content', 'created_at', 'user__username', 'user_id')
+        user_id = request.user.id
         comments_list = []
 
         for comment in comments:
             comments_list.append({
+                "id": comment["id"],
                 "content": comment["content"],
                 "created_at": comment["created_at"],
                 "user": "خودم" if user_id == comment["user_id"] else comment["user__username"],
-                "is_owner": user_id == comment["user_id"],  # اضافه کردن فیلد مالکیت
+                "is_owner": user_id == comment["user_id"],
             })
 
         return JsonResponse(comments_list, safe=False)
-    except Product.DoesNotExist:
+    except Product_dashboard.DoesNotExist:
         return JsonResponse({"error": "Product not found"}, status=404)
-
-  
 
 @login_required
 def delete_comment(request):
     if request.method == 'POST':
         comment_id = request.POST.get('comment_id')
-        print(f"Received comment_id: {comment_id}")  # اشکال‌زدایی
+
         if not comment_id or not comment_id.isdigit():
             return JsonResponse({"error": "Invalid comment ID"}, status=400)
 
-
- # دریافت شناسه کامنت
         try:
-            comment = Comment.objects.get(id=comment_id)
-            if comment.user == request.user:
-                comment.delete()
-                return JsonResponse({"success": "Comment deleted successfully"})
-            else:
-                return JsonResponse({"error": "Permission denied"}, status=403)
-        except Comment.DoesNotExist:
-            return JsonResponse({"error": "Comment not found"}, status=404)
+            comment = Comment_dashboard.objects.get(id=comment_id, user=request.user)
+            comment.delete()
+            return JsonResponse({"success": "Comment deleted successfully"})
+        except Comment_dashboard.DoesNotExist:
+            return JsonResponse({"error": "Comment not found or not owned by user"}, status=404)
     else:
         return JsonResponse({"error": "Invalid request method"}, status=405)
 
+def check_comments(request):
+    comments = Comment_dashboard.objects.all().values('id', 'content')
+    return JsonResponse({"comments": list(comments)}, safe=False)
 
-from django.views.generic.edit import FormView
-from .forms import PasswordChangingForm
-from django.urls import reverse_lazy
 
-from django.views.generic.edit import FormView
-from django.urls import reverse_lazy
-from .forms import PasswordChangingForm
+
 
 class PasswordssChangeView(FormView):
     form_class = PasswordChangingForm

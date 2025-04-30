@@ -12,7 +12,6 @@
         سبد خرید
         <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">{{cart|length}}</span>
     </a>
-    <button id="darkModeToggle" class="link-style">تغییر رنگ پس زمینه</button>
     <div class="dropdown">
         <button onclick="toggleDropdown()">محصولات برند های مختلف</button>
         <div class="dropdown-content" id="dropdownMenu">
@@ -31,56 +30,6 @@
     <a href="{% url "signup_url" %}">ثبت نام</a>
 </nav>
 {% endif %}
-<script>
-  style.innerHTML = `
-  .dark-mode {
-    background-color: #121212;
-    color: #ffffff;
-  }
-  .header.dark-mode, .footer.dark-mode, .navbar.dark-mode {
-    background-color: #1d1d1d;
-    color: #ffffff;
-  }
-  .product-card {
-    background-color: #1d1d1d;
-    border: 1px solid #ffffff;
-  }
-  .navbar a, .header a, .footer a {
-    color: #ffffff !important;
-  }
-`;
-
-    // JavaScript for toggling dark mode
-    const toggleButton = document.getElementById('darkModeToggle');
-    toggleButton.addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode');
-      document.querySelectorAll('.header, .footer, .navbar').forEach(element => {
-        element.classList.toggle('dark-mode');
-      });
-    });
-    
-    
-    // CSS for dark mode
-    const style = document.createElement('style');
-    style.innerHTML = `
-      .dark-mode {
-        background-color: #121212;
-        color: #ffffff;
-      }
-      .header.dark-mode, .footer.dark-mode, .navbar.dark-mode {
-        background-color: #1d1d1d;
-        color: #ffffff;
-      }
-      .product-card {
-        background-color: #1d1d1d;
-        border: 1px solid #ffffff;
-      }
-      button a {
-        color: #ffffff !important;
-      }
-    `;
-    document.head.appendChild(style);
-  </script>
   <script>
     function toggleDropdown() {
         let menu = document.getElementById("dropdownMenu");

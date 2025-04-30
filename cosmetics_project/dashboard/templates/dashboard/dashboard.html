@@ -16,16 +16,23 @@
         <button class="menu-btn" onclick="showPanel('settings')">Setting</button>
         <button class="menu-btn" onclick="showPanel('add_blog')">Add Blog</button>
         <button class="menu-btn" onclick="showPanel('Seeing_Blogs')">Seeing Blogs</button>
-        <button id="myButton" onclick="toggleTheme()" class="menu-btn">خاموش</button>
+        {% if request.user.username == 'admin3' %}
+            <button class="menu-btn" onclick="showPanel('add_category_dash')">Add Category</button>
+            <button class="menu-btn" onclick="showPanel('add_Product_dash')">Add Product</button>
+            <button class="menu-btn" onclick="showPanel('admin_dashboard')">Admin Dashboard</button>
+            {% endif %}
     </div>
     
     <div class="content">
         {% if user.is_authenticated %}
         
         <div id="user-information" class="panel active-session">
+
+
+
             <h1>User Profile</h1>
-            <form action="{% url "dashboard" %}" method="post" enctype="multipart/form-data">
-                <img src="{{profile.profile_image.url}}" alt="profile-image" width="200" height="200">
+
+            <form action="{% url 'dashboard' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <label>Username</label>
@@ -33,20 +40,213 @@
                 <label>Email</label>
                 <input type="email" name="email" value="{{ request.user.email }}">
                 <label>First Name</label>
-                <input type="first_name" name="first_name" value="{{ request.user.first_name }}">
+                <input type="text" name="first_name" value="{{ request.user.first_name }}">
                 <label>Last Name</label>
-                <input type="last_name" name="last_name" value="{{ request.user.last_name }}">
+                <input type="text" name="last_name" value="{{ request.user.last_name }}">
                 <button type="submit" class="save-data">Save Changes</button>
-                <button type="submit" class="save-data">
-                    <a href="{% url "password" %}">Updating Password</a>
-                </button>
             </form>
+            
+            
+            
         </div>
 
         <div id="settings" class="panel">
             <h1>Setting</h1>
             <p>تنظیمات کاربری</p>
+
+            <button id="myButton" onclick="toggleTheme()" class="menu-btn2">خاموش</button>
+
+            <audio id="musicPlayer" src="{% static "Blog/music/1.mp3" %}" loop></audio>
+            <button class="menu-btn2" id="toggleButton">روشن کردن موسیقی</button>
+
         </div>
+
+        <div id="add_category_dash" class="panel">
+            <h1>Category</h1>
+            <p>اضافه کردن دسته‌بندی</p>
+        
+            <form method="POST" action="{% url 'add_category' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="{{ category_form.name.id_for_label }}">نام دسته‌بندی:</label>
+                    {{ category_form.name }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ category_form.slug.id_for_label }}">Slug:</label>
+                    {{ category_form.slug }}
+                </div>
+                <button type="submit" class="btn btn-primary">ذخیره دسته‌بندی</button>
+            </form>
+            
+        
+            {% if categories %}
+            <div class="categories-list">
+                <h3>دسته‌بندی‌های موجود:</h3>
+                <ul>
+                    {% for category in categories %}
+                        <li class="category-item">
+                            <span class="category-name">نام: {{ category.name }}</span> |
+                            <span class="category-slug">Slug: {{ category.slug }}</span>
+                            <a href="{% url 'delete_category' category.id %}" 
+                               class="delete-btn"
+                               onclick="return confirm('آیا مطمئن هستید که این دسته‌بندی حذف شود؟')">
+                                حذف
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <p>هیچ دسته‌بندی موجود نیست.</p>
+        {% endif %}
+        
+        </div>
+        
+        
+
+        <div id="admin_dashboard" class="panel">
+            <h1>Admin Dashboard</h1>
+            
+            <!-- Summary Cards -->
+            <div class="dashboard-stats">
+                <div class="card">
+                    <h3>Active Users</h3>
+                    <p>{{ active_users }}</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Daily Revenue</h3>
+                    <p>$1,500</p>
+                </div>
+                <div class="card">
+                    <h3>Growth Rate</h3>
+                    <p>5.2%</p>
+                </div>
+            </div>
+            
+            <!-- Charts Section -->
+            <div class="dashboard-charts">
+                <h2>Statistics</h2>
+                <canvas id="lineChart"></canvas>
+                <canvas id="pieChart"></canvas>
+            </div>
+            
+            
+            <!-- User Data Table -->
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Date Joined</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in all_users %}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.first_name }}</td>
+                    <td>{{ user.last_name }}</td>
+                    <td>{{ user.date_joined }}</td>
+                </tr>
+                {% endfor %}
+                {% if all_users|length == 0 %}
+                <tr>
+                    <td colspan="3" class="text-center">No users found</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+
+            
+        </div>
+        
+
+
+        <div id="add_Product_dash" class="panel">
+            <h1>Product</h1>
+            <p>Adding Product</p>
+        
+            <form method="POST" action="{% url 'add_product_dash' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="{{ product_form.Product_name.id_for_label }}">نام محصول:</label>
+                    {{ product_form.Product_name }}
+                </div>
+                
+                <div class="form-group">
+                    <label for="{{ product_form.price.id_for_label }}">قیمت:</label>
+                    {{ product_form.price }}
+                </div>
+        
+                <div class="form-group">
+                    <label for="{{ product_form.category.id_for_label }}">دسته‌بندی:</label>
+                    {{ product_form.category }}
+                </div>
+        
+                <div class="form-group">
+                    <label for="{{ product_form.picture.id_for_label }}">تصویر اصلی:</label>
+                    {{ product_form.picture }}
+                </div>
+        
+                <div class="form-group">
+                    <label for="{{ product_form.picture2.id_for_label }}">تصویر دوم:</label>
+                    {{ product_form.picture2 }}
+                </div>
+        
+                <div class="form-group">
+                    <label for="{{ product_form.picture3.id_for_label }}">تصویر سوم:</label>
+                    {{ product_form.picture3 }}
+                </div>
+        
+                <div class="form-check">
+                    <label for="{{ product_form.is_sale.id_for_label }}">تخفیف دارد:</label>
+                    {{ product_form.is_sale }}
+                </div>
+        
+                <div class="form-group" id="sale-price-group" style="display: none;">
+                    <label for="{{ product_form.sale_price.id_for_label }}">قیمت با تخفیف:</label>
+                    {{ product_form.sale_price }}
+                </div>
+        
+                <button type="submit" class="btn btn-primary">ذخیره محصول</button>
+            </form>
+        
+            {% if products %}
+                <div class="products-list">
+                    <h3>محصولات موجود:</h3>
+                    <div class="products-grid">
+                        {% for product in products %}
+                            <div class="product-card">
+                                <h4>{{ product.Product_name }}</h4>
+                                {% if product.picture %}
+                                    <img src="{{ product.picture.url }}" alt="{{ product.Product_name }}" class="product-image">
+                                {% endif %}
+                                <p>قیمت: {{ product.price }}</p>
+                                <p>دسته‌بندی: {{ product.category.name }}</p>
+                                {% if product.is_sale %}
+                                    <p class="sale-price">قیمت با تخفیف: {{ product.sale_price }}</p>
+                                {% endif %}
+                                <a href="{% url 'delete_product_dash' product.id %}" 
+                                   class="delete-btn"
+                                   onclick="return confirm('آیا مطمئن هستید؟')">
+                                    حذف
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% else %}
+                <p>هیچ محصولی موجود نیست.</p>
+            {% endif %}
+        </div>
+        
+        
+
+
 
         <div id="add_blog" class="panel">
           <h1>Blog</h1>
@@ -57,12 +257,18 @@
               {{ form_blog.as_p }}
               <button type="submit" class="btn btn-primary">ارسال بلاگ</button>
           </form>
-      
 
-      
 
       </div>
-      <div id="Seeing_Blogs" class="panel2">
+
+
+
+    
+
+
+
+      
+      <div id="Seeing_Blogs" class="panel">
         <h1>Seeing Blogs</h1>
         {% for blog in blogs %}
         <div class="blog-post">
@@ -142,6 +348,69 @@
       }
   }
 </script>
+
+
+<script>
+    document.querySelector("form").addEventListener("submit", function(event) {
+        const picture = document.querySelector("input[name='picture']").files[0];
+        if (!picture) {
+            alert("لطفاً حداقل یک تصویر انتخاب کنید!");
+            event.preventDefault();  // متوقف کردن ارسال فرم
+        }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // نمودار خطی
+    var ctxLine = document.getElementById('lineChart').getContext('2d');
+    var lineChart = new Chart(ctxLine, {
+        type: 'line',
+        data: {
+            labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+            datasets: [{
+                label: 'Sales',
+                data: [12, 19, 3, 5, 7],
+                borderColor: 'blue',
+                borderWidth: 2,
+                fill: false
+            }]
+        }
+    });
+
+    // نمودار دایره‌ای
+    var ctxPie = document.getElementById('pieChart').getContext('2d');
+    var pieChart = new Chart(ctxPie, {
+        type: 'pie',
+        data: {
+            labels: ['Product A', 'Product B', 'Product C'],
+            datasets: [{
+                data: [30, 45, 25],
+                backgroundColor: ['red', 'green', 'blue']
+            }]
+        }
+    });
+</script>
+
+
+<script>
+    const musicPlayer = document.getElementById('musicPlayer');
+    const toggleButton = document.getElementById('toggleButton');
+
+    toggleButton.addEventListener('click', () => {
+        if (musicPlayer.paused) {
+            musicPlayer.play();
+            toggleButton.textContent = 'خاموش کردن موسیقی';
+        } else {
+            musicPlayer.pause();
+            toggleButton.textContent = 'روشن کردن موسیقی';
+        }
+    });
+</script>
+
+
+
 
 </body>
 </html>

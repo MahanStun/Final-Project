@@ -83,11 +83,12 @@
 <div id="comments-list">
   {% for comment in comments %}
   <div class="comment-box">
-    <p class="comment-user">{{ comment.user.username }}</p>
-    <p class="comment-content">{{ comment.content }}</p>
-    <button type="button" class="delete-comment" data-comment-id="{{ comment.id }}">حذف</button>
+      <p class="comment-user">{{ comment.user.username }}</p>
+      <p class="comment-content">{{ comment.content }}</p>
+      <button class="delete-comment" data-comment-id="{{ comment.id }}">حذف</button>
   </div>
   {% endfor %}
+  
 </div>
 
 
@@ -198,14 +199,23 @@
 
 
     // حذف کامنت
-    $(document).on('click', '.delete-comment', function(event) {
-    event.preventDefault(); // جلوگیری از رفتار پیش‌فرض
-    const commentId = $(this).data('comment-id'); // دریافت مقدار `data-comment-id`
-    console.log("Comment ID from button:", commentId); // بررسی مقدار
-    if (!commentId) {
-        console.error("Error: Comment ID is undefined or invalid.");
-        return; // جلوگیری از ارسال درخواست
+  
+
+});
+
+</script>
+
+<script>
+$(document).on('click', '.delete-comment', function(event) {
+    event.preventDefault();
+    const commentId = $(this).attr('data-comment-id'); // دریافت شناسه کامنت از data-comment-id
+    console.log("Comment ID:", commentId); // نمایش مقدار برای بررسی
+    
+    if (!commentId || commentId === "undefined" || commentId === "") {
+        console.error("Error: commentId is undefined or empty.");
+        return;
     }
+
     $.ajax({
         type: "POST",
         url: '{% url "delete_comment" %}',
@@ -217,17 +227,15 @@
             $(event.target).closest('.comment-box').remove();
         },
         error: function(xhr) {
-            console.error("Error:", xhr.responseJSON.error);
+            console.error("Error:", xhr.responseText);
         }
     });
 });
 
 
 
-
-});
-
 </script>
+
 
 
 

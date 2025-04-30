@@ -44,7 +44,25 @@ body {
   background: #fff;
   color: #6a11cb;
 }
+.menu-btn2 {
+  display: block;
+  margin: 15px 0;
+  padding: 12px 25px;
+  background-color: #3498db;
+  border: none;
+  border-radius: 50px;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
+.menu-btn2:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
 /* بخش محتوایی */
 .content {
   flex-grow: 1;
@@ -154,4 +172,275 @@ input:focus, textarea:focus {
 .nav-tabs .nav-link:hover {
   background: rgba(106, 17, 203, 0.4);
   transform: scale(1.05);
+}
+
+
+
+.dashboard-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 30%;
+}
+
+.dashboard-charts {
+  margin-top: 20px;
+}
+
+.user-data {
+  margin-top: 20px;
+}
+
+.table {
+  margin-top: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table th {
+  background-color: #007bff; /* رنگ پس‌زمینه سربرگ */
+  color: #fff; /* رنگ متن سربرگ */
+  text-align: center;
+}
+
+.table td {
+  text-align: center; /* متن وسط‌چین */
+  padding: 15px;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #f9f9f9; /* پس‌زمینه متفاوت برای ردیف‌های فرد */
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f1f1f1; /* پس‌زمینه در هنگام هاور کردن */
+}
+
+
+
+.dashboard-charts {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.dashboard-charts canvas {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+
+.dashboard-charts {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+canvas {
+  max-width: 400px;
+  max-height: 300px;
+}
+
+a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+
+/* استایل کلی فرم */
+#add_Product_dash {
+  background-color: #ffffff; /* رنگ پس‌زمینه فرم */
+  padding: 20px;             /* فاصله داخلی */
+  border: 1px solid #ccc;    /* حاشیه فرم */
+  border-radius: 10px;       /* گوشه‌های گرد */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* سایه فرم */
+}
+
+/* تیترهای فرم */
+#add_Product_dash h1 {
+  font-size: 24px;           /* اندازه فونت تیتر */
+  color: #333;               /* رنگ متن تیتر */
+  margin-bottom: 15px;       /* فاصله پایین */
+}
+
+/* توضیحات زیر تیتر */
+#add_Product_dash p {
+  font-size: 16px;           /* اندازه فونت متن توضیحی */
+  color: #555;               /* رنگ متن توضیحات */
+  margin-bottom: 20px;       /* فاصله پایین */
+}
+
+/* استایل گروه‌های فرم */
+#add_Product_dash .form-group {
+  margin-bottom: 15px;       /* فاصله بین عناصر فرم */
+}
+
+/* برچسب‌های فرم */
+#add_Product_dash label {
+  font-weight: bold;         /* برجسته کردن متن برچسب */
+  display: block;            /* نمایش به‌صورت بلوک */
+  margin-bottom: 5px;        /* فاصله پایین */
+}
+
+/* فیلدهای ورودی */
+#add_Product_dash input, 
+#add_Product_dash select, 
+#add_Product_dash textarea {
+  width: 100%;               /* پهنای کامل */
+  padding: 10px;             /* فاصله داخلی */
+  border: 1px solid #ccc;    /* حاشیه فیلد */
+  border-radius: 5px;        /* گوشه‌های گرد */
+  box-sizing: border-box;    /* محاسبه صحیح فاصله‌ها */
+  font-size: 16px;           /* اندازه فونت */
+}
+
+/* دکمه ذخیره */
+#add_Product_dash .btn {
+  background-color: #4CAF50; /* رنگ پس زمینه دکمه */
+  color: white;              /* رنگ متن دکمه */
+  padding: 10px 20px;        /* فاصله داخلی */
+  border: none;              /* حذف حاشیه */
+  border-radius: 5px;        /* گوشه‌های گرد */
+  font-size: 16px;           /* اندازه فونت */
+  cursor: pointer;           /* تغییر نشانگر ماوس به دست */
+  transition: background-color 0.3s ease; /* تغییر آرام رنگ */
+}
+
+/* افکت هاور برای دکمه */
+#add_Product_dash .btn:hover {
+  background-color: #45a049; /* تغییر رنگ در حالت هاور */
+}
+
+/* دکمه حذف */
+#add_Product_dash .delete-btn {
+  background-color: #f44336; /* رنگ قرمز */
+  color: white;              /* رنگ متن سفید */
+  padding: 8px 16px;         /* فاصله داخلی */
+  border: none;              /* حذف حاشیه */
+  border-radius: 5px;        /* گوشه‌های گرد */
+  font-size: 14px;           /* اندازه فونت */
+  cursor: pointer;           /* نشانگر دست */
+  transition: background-color 0.3s ease; /* افکت تغییر رنگ */
+}
+
+/* افکت هاور برای دکمه حذف */
+#add_Product_dash .delete-btn:hover {
+  background-color: #d32f2f; /* رنگ قرمز تیره‌تر */
+}
+
+/* کارت محصولات */
+.products-list .product-card {
+  border: 1px solid #ccc;    /* حاشیه کارت */
+  border-radius: 5px;        /* گوشه‌های گرد */
+  padding: 10px;             /* فاصله داخلی */
+  margin-bottom: 15px;       /* فاصله پایین کارت‌ها */
+  text-align: center;        /* تراز وسط */
+}
+
+/* تصویر محصول */
+.products-list .product-image {
+  max-width: 100%;           /* حداکثر پهنا */
+  height: auto;              /* ارتفاع خودکار */
+  margin-bottom: 10px;       /* فاصله پایین */
+}
+
+
+
+/* استایل کلی برای پنل افزودن دسته‌بندی */
+#add_category_dash {
+  background-color: #fdfdfd; /* رنگ پس‌زمینه */
+  border: 1px solid #ddd;   /* حاشیه */
+  border-radius: 10px;      /* گوشه‌های گرد */
+  padding: 20px;            /* فاصله داخلی */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* سایه ظریف */
+}
+
+/* تیترهای اصلی */
+#add_category_dash h1 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* توضیحات زیر تیتر */
+#add_category_dash p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* فرم گروه */
+#add_category_dash .form-group label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* استایل فیلد ورودی */
+#add_category_dash input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* استایل دکمه‌ها */
+#add_category_dash .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#add_category_dash .btn:hover {
+  background-color: #45a049;
+}
+
+/* لیست دسته‌بندی‌ها */
+.categories-list ul {
+  list-style-type: none; /* حذف نقطه‌ها */
+  padding: 0;
+}
+
+.categories-list .category-item {
+  display: flex;
+  justify-content: space-between; /* فاصله بین متن و دکمه حذف */
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.categories-list .category-name {
+  font-size: 16px;
+  color: #333;
+}
+
+/* استایل دکمه حذف */
+.categories-list .delete-btn {
+  background-color: #f44336;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.categories-list .delete-btn:hover {
+  background-color: #d32f2f;
 }

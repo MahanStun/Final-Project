@@ -1,6 +1,8 @@
 import json
 from decimal import Decimal
 from Shop.models import Product
+from dashboard.models import Product_dashboard
+
 
 def decimal_default(object):
     if isinstance(object, Decimal):
@@ -58,7 +60,7 @@ class Cart:
     
     def get_prods(self):
         Productss1_id = self.cart.keys()
-        Productss = Product.objects.filter(id__in=Productss1_id)
+        Productss = Product_dashboard.objects.filter(id__in=Productss1_id)
         return Productss
     def get_real_session(self):
         return self.cart

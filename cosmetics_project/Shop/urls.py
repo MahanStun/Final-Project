@@ -22,4 +22,6 @@ urlpatterns = [
     path("add_comment/", views.add_comment, name="add_comment"),
     path('delete-comment/', views.delete_comment, name='delete_comment'),
     path("setting/", UserEditView.as_view() ,name="setting"),
+    path('check_comments/', views.check_comments, name='check_comments'),
+
 ]

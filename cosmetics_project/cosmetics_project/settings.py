@@ -132,6 +132,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR,"media")
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+LOGIN_REDIRECT_URL = '/dashboard/'  # هدایت پس از ورود به مسیر داشبورد
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  # هاست SMTP (مثلاً smtp.gmail.com برای Gmail)
 EMAIL_PORT = 587  # شماره پورت

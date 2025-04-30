@@ -8,7 +8,7 @@ from django.conf import settings
 import requests
 import random
 import string
-
+from dashboard.models import Product_dashboard
 
 
 DESCRIPTION = "Thank you for purchasing from us"
@@ -99,7 +99,7 @@ def cart_add(request):
             return JsonResponse({"error": "Please select state of course"}, status=404)
         if not Productss_id:
             return JsonResponse({"error": "Please select state of course"}, status=404)
-        products = get_object_or_404(Product,id=Productss_id)
+        products = get_object_or_404(Product_dashboard,id=Productss_id)
         cart.add(products = products, state = Productss_state) 
         
         cart_quantity = cart.__len__()
@@ -120,7 +120,7 @@ def cart_update(request):
         Productss_id = request.POST.get("Productss_id")
         Productss_state = request.POST.get("Productss_state")
         Productss_price = None
-        product = Product.objects.get(id=Productss_id)
+        product = Product_dashboard.objects.get(id=Productss_id)
         if product.is_sale:
             Productss_price = product.sale_price
         else:
@@ -132,6 +132,6 @@ def cart_update(request):
 def cart_delete(request):
     cart = Cart(request)
     Productss_id = request.POST.get("Productss_id")
-    products = get_object_or_404(Product,id=Productss_id)
+    products = get_object_or_404(Product_dashboard,id=Productss_id)
     cart.delete(products)
     return redirect('cart_summary')
