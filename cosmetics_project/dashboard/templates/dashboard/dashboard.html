@@ -27,7 +27,13 @@
         {% if user.is_authenticated %}
         
             <div id="user-information" class="panel active-session">
-
+                <div class="profile-picture">
+                    {% if profile.profile_image.url %}
+                        <img src="{{profile.profile_image.url}}" alt="profile-image" width="200" height="200">
+                        {% else %}
+                        <img src="http://127.0.0.1:8000/media/uploads/user/profile.jpg" alt="profile-image" width="200" height="200">
+                    {% endif %}
+                </div>
 
 
             <h1>User Profile</h1>

@@ -17,8 +17,12 @@ class Cart:
 
         if not isinstance(cart, dict):
             cart = {}
-
         self.cart = cart
+    def get_first_product(self):
+        if self.cart:
+            first_product_key = next(iter(self.cart))  # دریافت اولین محصول
+            return self.cart[first_product_key]
+        return None
 
     def add(self, products,state):
         Productss_id = str(products.id)

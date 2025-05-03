@@ -32,6 +32,7 @@ class UserEditView(generic.UpdateView):
         return self.request.user
 def index_shop(request):
     Products = Product_dashboard.objects.all()
+    categories = Category_dashboard.objects.all()  # دریافت همه دسته‌بندی‌ها
     if request.method == "POST":
         query = request.POST.get("search-course")
         if query:
@@ -39,7 +40,7 @@ def index_shop(request):
     paginator = Paginator(Products,3)
     page_number = request.GET.get("page",1)
     page_obj = paginator.get_page(page_number)
-    return render(request, "shop/index.html",{"Products": Products , "page_obj" : page_obj})
+    return render(request, "shop/index.html",{"Products": Products , "page_obj" : page_obj,"categories": categories})
 
     #return HttpResponse("welcome")
 def Products_Cosmetics(request, pk):
@@ -195,17 +196,22 @@ def resend_code(request):
 
         messages.success(request, "کد جدید به ایمیل شما ارسال شد!")
         return redirect("verifycation_code")
+    
 
 def category(request, cat=None):
-    print(cat)
-    if cat is not None:
-        # cat = cat.replace("-", " ")
-  
-
-        category = Category_dashboard.objects.get(slug=cat)  # programing
-        Products = Product_dashboard.objects.filter(category=category)
-        return render(request, "shop/category.html", {"Products": Products})
+    print(f"دسته‌بندی درخواست‌شده: {cat}")  # بررسی مقدار دریافتی
     
+    if cat is not None:
+        try:
+            category = Category_dashboard.objects.get(slug=cat)  # بررسی دسته‌بندی
+            print(f"دسته‌بندی پیدا شد: {category.name}")  
+        except Category_dashboard.DoesNotExist:
+            return render(request, "shop/errorPage.html", {"message": "دسته‌بندی پیدا نشد."})
+
+        Products = Product_dashboard.objects.filter(category=category)
+        print(f"تعداد محصولات یافت‌شده: {Products.count()}")  # نمایش تعداد محصولات
+
+        return render(request, "shop/category.html", {"Products": Products, "category": category})
 
 
 

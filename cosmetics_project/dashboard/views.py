@@ -57,18 +57,19 @@ class DashboardView(View):
         if not request.user.is_authenticated:
             return redirect("login")
         
-        user = request.user
-        form = UserChangeForm(request.POST, instance=user)
+        user_profile, _ = UserProfile.objects.get_or_create(user=request.user)
+        form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
 
         if form.is_valid():
-            form.save()  # ذخیره تغییرات کاربر
-            messages.success(request, "اطلاعات کاربری با موفقیت تغییر کرد!")
+            form.save()  # ذخیره تغییرات از جمله تصویر جدید
+            messages.success(request, "اطلاعات پروفایل با موفقیت تغییر کرد!")
             return redirect("dashboard")
         else:
             messages.error(request, "مشکلی در فرم وجود دارد. لطفا اطلاعات خود را بررسی کنید.")
             print(form.errors)  # نمایش خطاهای فرم برای دیباگ
 
-        return render(request, "dashboard/dashboard.html", {"form": form})
+        return render(request, "dashboard/dashboard.html", {"form": form, "profile": user_profile})
+
 
 
 def add_blog(request):

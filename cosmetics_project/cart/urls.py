@@ -7,5 +7,7 @@ urlpatterns = [
     path("delete/",views.cart_delete,name="cart_remove"),
     path("update/",views.cart_update,name="update"),
     path("pay/",payment_zarinpal, name="zarinpal"),
-    path("verify/",verify_payment),
+    path("verify/", verify_payment, name="verify_payment"),
+    path("finding_product/",find_product, name="finding"),
 ]
+
