@@ -23,4 +23,6 @@ urlpatterns = [
     path('delete-comment/', views.delete_comment, name='delete_comment'),
     path("setting/", UserEditView.as_view() ,name="setting"),
     path('check_comments/', views.check_comments, name='check_comments'),
+    path('like_product/<int:product_id>/', views.like_product, name='like_product'),
+    path('check_like_status/<int:product_id>/', views.check_like_status, name='check_like_status'),
 ]

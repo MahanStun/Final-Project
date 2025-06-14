@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>پرداخت موفق</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Vazir', 'IRANSans', sans-serif;
+            text-align: center;
+            background-color: #f2f2f2;
+            padding: 50px;
+        }
+        .confirmation-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: inline-block;
+        }
+        .confirmation-box h2 {
+            color: green;
+            font-size: 24px;
+        }
+        .tracking-code {
+            font-size: 20px;
+            color: #007bff;
+        }
+        .check-icon {
+            font-size: 80px;
+            color: green;
+            margin-bottom: 10px;
+        }
+        .back-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    {% for product in orders %}
+    <div class="confirmation-box">
+        <i class="fa fa-check-circle check-icon"></i>
+        <h2> سفارش با موفقیت انجام شد!</h2>
+        <p>کد پیگیری: <span class="tracking-code">{{ tracking_code }}</span></p>
+        <a href="{% url "index_shop" %}" class="back-btn">بازگشت به فروشگاه</a>
+    </div>
+    {% endfor %}
+</body>
+</html>

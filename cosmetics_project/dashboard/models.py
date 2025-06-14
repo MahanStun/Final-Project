@@ -76,7 +76,7 @@ class Category_dashboard(models.Model):
         return self.name
 
 class Product_dashboard(models.Model):
-    Product_name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=12, decimal_places=0)
     category = models.ForeignKey(Category_dashboard, on_delete=models.CASCADE)
     picture = models.ImageField(upload_to="upload/cosmetics_picture/", blank=True, null=True)
@@ -85,8 +85,13 @@ class Product_dashboard(models.Model):
     is_sale = models.BooleanField(default=False)
     sale_price = models.DecimalField(max_digits=12, decimal_places=0, blank=True, null=True)
 
+    likes = models.ManyToManyField(User, related_name="liked_products", blank=True)  # اضافه کردن فیلد لایک
+
+    def total_likes(self):
+        return self.likes.count()  # تعداد کل لایک‌ها
+
     def __str__(self):
-        return self.Product_name
+        return self.name
 
 
 class Comment_dashboard(models.Model):

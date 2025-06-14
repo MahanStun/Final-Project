@@ -81,3 +81,36 @@ class Cart:
             del self.cart[Productss_id]
 
         self.session.modified = True
+import json
+from decimal import Decimal
+from dashboard.models import Product_dashboard
+
+def decimal_default(object):
+    if isinstance(object, Decimal):
+        return float(object)
+
+class Cart2:
+    def __init__(self, request):
+        self.session = request.session
+        cart = self.session.get("session_key2", {})
+        if not isinstance(cart, dict):
+            cart = {}
+        self.cart = cart
+
+    def add(self, product, state):
+        product_id = str(product.id)
+        if product_id not in self.cart:
+            self.cart[product_id] = {
+                "price": float(product.sale_price if product.is_sale else product.price),
+                "state": state,
+            }
+        self.session.modified = True
+        self.session["session_key2"] = self.cart
+
+    def total_price(self):
+        return sum(item["price"] for item in self.cart.values())
+
+    def clear(self):
+        """ حذف کل سبد خرید بعد از خرید موفق """
+        self.cart = {}
+        self.session.modified = True

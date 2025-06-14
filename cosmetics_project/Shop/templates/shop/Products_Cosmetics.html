@@ -47,7 +47,7 @@
       </div>
       <div class="col-md-8">
         <div class="card-body">
-          <h5 class="card-title">اسم محصول:{{Productss.Product_name}}</h5>
+          <h5 class="card-title">اسم محصول:{{Productss.name}}</h5>
           <select class="form-select w-50" id="state">
             <option selected value="noting">شماره خود را انتخاب کنید</option>
             <option value="001">001</option>
@@ -70,6 +70,15 @@
           <button type="button" class="btn btn-dark">
            <a href="{% url "index_shop" %}" class="text-decoration-none">بازگشت به صفحه اصلی</a>
        </button>
+       <div class="like-container">
+        <button id="like-btn" data-product-id="{{ Productss.id }}">
+            <img id="like-icon" src="https://img.icons8.com/?size=100&id=82788&format=png&color=000000" width="24" height="24">
+        </button>
+        <span id="like-count">{{ Productss.total_likes }}</span>
+    </div>
+    
+    
+    
         </div>
       </div>
     </div>
@@ -237,7 +246,45 @@ $(document).on('click', '.delete-comment', function(event) {
 
 </script>
 
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+$(document).on('click', '#like-btn', function() {
+    var productId = $(this).data('product-id');
+    $.ajax({
+        type: "POST",
+        url: '{% url "like_product" 0 %}'.replace("0", productId),
+        data: {
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+        },
+        success: function(response) {
+            $('#like-count').text(response.total_likes);
+            if (response.liked) {
+                $('#like-icon').attr('src', 'https://img.icons8.com/?size=100&id=83166&format=png&color=000000'); // تغییر به سفید
+            } else {
+                $('#like-icon').attr('src', 'https://img.icons8.com/?size=100&id=82788&format=png&color=000000'); // بازگشت به مشکی
+            }
+        }
+    });
+});
+$(document).ready(function() {
+    var productId = $('#like-btn').data('product-id');
 
+    // بررسی وضعیت لایک هنگام بارگذاری صفحه
+    $.ajax({
+        type: "GET",
+        url: '{% url "check_like_status" 0 %}'.replace("0", productId),
+        success: function(response) {
+            if (response.liked) {
+                $('#like-icon').attr('src', 'https://img.icons8.com/?size=100&id=83166&format=png&color=000000'); // تغییر به سفید
+            }
+        }
+    });
+});
+
+
+
+
+</script>
 
 
 {% endblock content_section_shop %}

@@ -30,12 +30,12 @@ from .models import Product_dashboard
 class ProductDashboardForm(forms.ModelForm):
     class Meta:
         model = Product_dashboard
-        fields = ['Product_name', 'price', 'category', 'picture', 'picture2', 'picture3', 'is_sale', 'sale_price']
+        fields = ['name', 'price', 'category', 'picture', 'picture2', 'picture3', 'is_sale', 'sale_price']
         widgets = {
             'is_sale': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'price': forms.NumberInput(attrs={'class': 'form-control'}),
             'sale_price': forms.NumberInput(attrs={'class': 'form-control'}),
-            'Product_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
             'category': forms.Select(attrs={'class': 'form-control'}),
         }
 

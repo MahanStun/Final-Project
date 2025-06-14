@@ -20,6 +20,8 @@ from .models import Comment, Product
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import FormView
 from dashboard.models import Product_dashboard , Category_dashboard ,Comment_dashboard
+from django.shortcuts import get_object_or_404
+
 
 # Create your views here.
 
@@ -36,7 +38,7 @@ def index_shop(request):
     if request.method == "POST":
         query = request.POST.get("search-course")
         if query:
-            Products = Product_dashboard.objects.filter(Product_name__icontains=query)
+            Products = Product_dashboard.objects.filter(name__icontains=query)
     paginator = Paginator(Products,3)
     page_number = request.GET.get("page",1)
     page_obj = paginator.get_page(page_number)
@@ -285,6 +287,30 @@ def delete_comment(request):
 def check_comments(request):
     comments = Comment_dashboard.objects.all().values('id', 'content')
     return JsonResponse({"comments": list(comments)}, safe=False)
+
+
+
+
+
+
+@login_required
+def like_product(request, product_id):
+    product = get_object_or_404(Product_dashboard, id=product_id)
+    if request.user in product.likes.all():
+        product.likes.remove(request.user)
+        liked = False
+    else:
+        product.likes.add(request.user)
+        liked = True
+
+    return JsonResponse({'total_likes': product.total_likes(), 'liked': liked})
+
+
+@login_required
+def check_like_status(request, product_id):
+    product = get_object_or_404(Product_dashboard, id=product_id)
+    liked = request.user in product.likes.all()
+    return JsonResponse({'liked': liked})
 
 
 

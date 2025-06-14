@@ -22,7 +22,7 @@ class Category(models.Model):
 
 class Product(models.Model):
     # states = ((1"Basic"),(2""),(3""))
-    Product_name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=12, default=0, decimal_places=0)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     picture = models.ImageField(upload_to="upload/cosmetics_picture/")
@@ -33,7 +33,7 @@ class Product(models.Model):
     # percent_show = models.IntegerField()
 
     def __str__(self):
-        return self.Product_name
+        return self.name
 
 
 class Comment(models.Model):

@@ -246,3 +246,29 @@ button[type="submit"]:hover {
   opacity: 0; /* محو شدن */
   transform: translateX(-100px); /* حرکت به سمت چپ */
 }
+
+.like-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#like-btn {
+  border: none;
+  background: none;
+  padding: 5px;
+}
+
+#like-count {
+  font-size: 12px;
+  margin-top: 4px;
+}
+#like-btn {
+  border: none;
+  background-color: transparent;
+  padding: 5px;
+}
+
+#like-icon {
+  transition: filter 0.3s ease-in-out;
+}
