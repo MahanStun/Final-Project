@@ -119,6 +119,29 @@ USE_I18N = True
 
 USE_TZ = True
 
+import dj_database_url
+import os
+
+if os.getenv("USE_POSTGRES") == "true":
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.getenv("POSTGRES_DB", "app-db"),
+            "USER": os.getenv("POSTGRES_USER", "root"),
+            "PASSWORD": os.getenv("POSTGRES_PASSWORD", "your_password"),
+            "HOST": os.getenv("POSTGRES_HOST", "localhost"),
+            "PORT": os.getenv("POSTGRES_PORT", "5432"),
+        }
+    }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        }
+    }
+
+#####################################################
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/

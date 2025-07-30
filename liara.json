@@ -1,17 +1,13 @@
 {
-  "app": "studentproject",
-  "port": 80,
-  "build": {
-    "location": "iran"
-  },
-  "disks": []
-}
-
-{
   "app":"studentproject",
   "port":80,
   "build":{
   "location":"iran"
   },
-  "disks":[]
+  "disks": [
+        {
+            "name": "uploads",
+            "mountTo": "media"
+        }
+    ] 
   }
